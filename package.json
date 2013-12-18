@@ -1,0 +1,13 @@
+{
+  "name": "test",
+  "description": "Personal test",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Spope/bookmarks.git"
+  },
+  "dependencies": {
+      "request"                         : "*",
+      "cheerio"                         : "*"
+  }
+}
