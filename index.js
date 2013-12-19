@@ -3,6 +3,11 @@ var cheerio = require('cheerio');
 var fs      = require('fs');
 var Q       = require('q');
 
+var Merge   = require('./modules/merge');
+
+
+
+
 
 var urls = new Array();
 var index = 0;
@@ -27,7 +32,9 @@ var loadAdresses = function(){
         for(var i in list){
             var url = list[i].attribs.href;
             url = url.replace('./', 'http://mars.jpl.nasa.gov/msl/multimedia/raw/');
-            urls.push(url);
+            if(i < 5){
+                urls.push(url);
+            }
         }
         nextPage();
     });
@@ -39,8 +46,11 @@ loadAdresses();
 var nextPage = function(){
     if(index < urls.length){
         loadPage(urls[index]);
+        index++;
+    }else{
+        console.log('Scrapping pic end');
+        Merge.merge();
     }
-    index++;
 }
 
 
@@ -107,7 +117,6 @@ var saveImg = function(url, filename){
     request.head(url, function(err, res, body){
 
         var writer = fs.createWriteStream("exports/"+position+camera+"/"+filename);
-
         var dl = request(url)
             .on('end', function(){
                 defer.resolve(true);

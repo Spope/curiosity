@@ -21,6 +21,9 @@ It will only download picture >= 256px width.
 Go into **root/** and run
 
     npm install
+    
+    sudo apt-get install imagemagick
+	sudo apt-get install graphicsmagick
 
 ###Execution
 	node index.js

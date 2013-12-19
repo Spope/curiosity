@@ -9,6 +9,7 @@
   "dependencies": {
       "request"                         : "*",
       "cheerio"                         : "*",
-      "q"                               : "*"
+      "q"                               : "*",
+      "gm"                              : "*"
   }
 }
