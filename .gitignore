@@ -1,4 +1,8 @@
 /node_modules/*
+/exports/LeftA/*
+/exports/LeftB/*
+/exports/RightA/*
+/exports/RightB/*
 
 *~
 *.lock
