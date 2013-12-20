@@ -79,11 +79,11 @@ module.exports = {
             //retrieving <a> list
             var list = $('body').find('div.image_title:contains("Front Hazard Avoidance Cameras (Front Hazcams)")').next().children('.image_list').children('ul').children('li').children('a').toArray();
 
-            
+            var sol;
             for(var i in list){
                 var url = list[i].attribs.href;
                 url = url.replace('./', 'http://mars.jpl.nasa.gov/msl/multimedia/raw/');
-                var sol = list[i].children[0].data;
+                sol = list[i].children[0].data;
                 sol = sol.split('\n');
                 sol = sol[1];
                 if(i == 0){
@@ -95,12 +95,14 @@ module.exports = {
                     }
                 }
 
-                that._urls.push(url);
+                if(sol > that.previousSol){
+                    that._urls.push(url);
+                    fs.writeFile('exports/last-sol.txt', sol, function (err) {
+                        if (err) throw err;
+                        console.log('Sol saved!');
+                    });
+                }
             }
-            fs.writeFile('exports/last-sol.txt', sol, function (err) {
-                if (err) throw err;
-                console.log('Sol saved!');
-            });
             defer.resolve();
         });
 

@@ -9,11 +9,11 @@ var Merge   = require('./modules/merge');
 var Video   = require('./modules/video');
 
 
-//Download.loadPics(function(){
+Download.loadPics(function(){
     //Merge.merge(function(){
         //Video.convert();
     //});
-//});
+});
 
 
 //Video.convert();
