@@ -28,6 +28,7 @@ module.exports = {
         var loop = function(sides, cameras){
             that.start(sides[si], cameras[ci], function(){
                 ci++;
+                that._index = 0;
                 if(ci < cameras.length){
                     loop(sides, cameras)
                 }else{
@@ -54,9 +55,7 @@ module.exports = {
         this.camera = camera;
         console.log('start scrapping : '.cyan+side+camera);
 
-        var that = this;
-
-        that.nextPage();
+        this.nextPage();
 
         this._end.promise.then(function(){
             console.log('next camera'.cyan);
@@ -125,7 +124,7 @@ module.exports = {
         if(this._index < this._urls.length){
             this.loadPage(this._urls[this._index], function(body){
                 var list = that.parse(body);
-                that.download(list, that.nextPage);
+                that.download(list, function(){that.nextPage();});
             });
             this._index++;
         }else{
@@ -180,10 +179,13 @@ module.exports = {
         //
         var that = this;
         console.log('loading pics'.cyan);
+        if(list.length == 0){
+            callback();
+            return;
+        }
         for(var i in list){
-
             console.log(list[i].name);
-            that._loading++;
+            this._loading++;
 
             this.saveImg(list[i].src, list[i].name+".jpg").then(function(){
                 that._loading--;
@@ -200,6 +202,7 @@ module.exports = {
         var defer = Q.defer();
 
         request.head(url, function(err, res, body){
+            console.log('done');
             var writer = fs.createWriteStream(that._path+that.side+that.camera+"/"+filename);
             var dl = request(url)
                 .on('end', function(){

@@ -70,7 +70,8 @@ describe('Download', function() {
 
             Download.download(list, function(){
 
-                var pictures = fs.readdirSync("../../exports/merge/");
+                var pictures = fs.readdirSync("exports/merge/");
+
                 console.log(pictures);
                 assert.equal(pictures.length, 4);
             });
