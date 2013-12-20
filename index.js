@@ -10,9 +10,9 @@ var Video   = require('./modules/video');
 
 
 Download.loadPics(function(){
-    //Merge.merge(function(){
-        //Video.convert();
-    //});
+    Merge.merge(function(){
+        Video.convert();
+    });
 });
 
 

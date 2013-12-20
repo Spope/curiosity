@@ -92,15 +92,14 @@ module.exports = {
                         console.log('No new pictures'.green);
                         defer.resolve();
                         return true;
+                    }else{
+                        fs.writeFileSync('exports/last-sol.txt', sol);
+                        console.log('Sol saved!');
                     }
                 }
 
                 if(sol > that.previousSol){
                     that._urls.push(url);
-                    fs.writeFile('exports/last-sol.txt', sol, function (err) {
-                        if (err) throw err;
-                        console.log('Sol saved!');
-                    });
                 }
             }
             defer.resolve();
