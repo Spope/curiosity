@@ -16,11 +16,13 @@ module.exports = {
     _urls: [],
     _index: 0,
     _end: null,
+    previousSol: 0,
 
     loadPics: function(callback){
         var si = 0;
         var ci = 0;
         var that = this;
+        this.previousSol = fs.readFileSync('exports/last-sol.txt');
         var loop = function(sides, cameras){
             that.start(sides[si], cameras[ci], function(){
                 ci++;
@@ -77,13 +79,28 @@ module.exports = {
             //retrieving <a> list
             var list = $('body').find('div.image_title:contains("Front Hazard Avoidance Cameras (Front Hazcams)")').next().children('.image_list').children('ul').children('li').children('a').toArray();
 
+            
             for(var i in list){
                 var url = list[i].attribs.href;
                 url = url.replace('./', 'http://mars.jpl.nasa.gov/msl/multimedia/raw/');
-                if(i < 20){
-                    that._urls.push(url);
+                var sol = list[i].children[0].data;
+                sol = sol.split('\n');
+                sol = sol[1];
+                if(i == 0){
+                    //I look if I had already scraped this sol
+                    if(that.previousSol == sol){
+                        console.log('No new pictures'.green);
+                        defer.resolve();
+                        return true;
+                    }
                 }
+
+                that._urls.push(url);
             }
+            fs.writeFile('exports/last-sol.txt', sol, function (err) {
+                if (err) throw err;
+                console.log('Sol saved!');
+            });
             defer.resolve();
         });
 
