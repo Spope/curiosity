@@ -8,13 +8,19 @@ module.exports = {
     side: ['Left', 'Right'],
     path: 'exports/',
 
+    _end: Q.defer(),
+
     merge: function(){
         var that = this;
         this._readFiles().then(function(){
-            console.log('start resize');
+            console.log('start resize'.cyan);
             return that._resize();
+        }).then(function(){
+            that._end.resolve();
+
         }).catch(function(err){console.log(err)});;
 
+        return this._end.promise;
     },
 
     _readFiles: function(){
@@ -34,7 +40,7 @@ module.exports = {
                         this._rename(pictures[index], folder).then(function(){
                             picLength--;
                             if(picLength == 0){
-                                console.log('moving pics ends');
+                                console.log('moving pics ends'.green);
                                 defer.resolve();
                             }
                         });
@@ -55,8 +61,8 @@ module.exports = {
                 //Check if the picture is correct
                 if(size.width == size.height && size.width > 255){
                     fs.renameSync(folder+pic, that.path+'merge/'+pic);
-                    defer.resolve();
                 }
+                defer.resolve();
             }else{
                 console.log(err);
                 defer.reject();

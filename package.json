@@ -10,6 +10,8 @@
       "request"                         : "*",
       "cheerio"                         : "*",
       "q"                               : "*",
-      "gm"                              : "*"
+      "gm"                              : "*",
+      "colors"                          : "*",
+      "fluent-ffmpeg"                   : "*"
   }
 }
