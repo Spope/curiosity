@@ -6,16 +6,14 @@ var colors  = require('colors');
 
 var Download= require('./modules/download');
 var Merge   = require('./modules/merge');
+var Video   = require('./modules/video');
 
 
-//Download.loadPics(side, camera).then(function(){
+//Download.loadPics(function(){
+    //Merge.merge(function(){
+        //Video.convert();
+    //});
+//})
 
-    //return Merge.merge();
-//}).then(function(){
 
-    //console.log('Pictures resized'.green)
-//});
-
-Download.loadPics(function(){
-    Merge.merge();
-})
+Video.convert();

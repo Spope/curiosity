@@ -80,7 +80,7 @@ module.exports = {
             for(var i in list){
                 var url = list[i].attribs.href;
                 url = url.replace('./', 'http://mars.jpl.nasa.gov/msl/multimedia/raw/');
-                if(i < 10){
+                if(i < 20){
                     that._urls.push(url);
                 }
             }

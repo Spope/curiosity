@@ -5,82 +5,140 @@ var Q  = require('q');
 module.exports = {
 
     cameras: ['A', 'B'],
-    side: ['Left', 'Right'],
+    sides: ['Left', 'Right'],
+    camera: null,
+    side: null,
     path: 'exports/',
 
-    _end: Q.defer(),
+    _picNumber: 0,
 
-    merge: function(){
+    merge: function(callback){
+        var si = 0;
+        var ci = 0;
         var that = this;
-        this._readFiles().then(function(){
-            console.log('start resize'.cyan);
-            return that._resize();
-        }).then(function(){
-            that._end.resolve();
+        console.log('start moving files'.cyan);
+        var loop = function(sides, cameras){
+            that.start(that.sides[si], that.cameras[ci], function(){
+                console.log('moving '.cyan+that.sides[si].cyan+that.cameras[ci].cyan);
+                ci++;
+                if(ci < that.cameras.length){
+                    loop(sides, cameras)
+                }else{
+                    if(si < sides.length -1){
+                        si++;
+                        ci = 0;
 
-        }).catch(function(err){console.log(err)});;
+                        loop(sides, cameras);
+                    }else{
 
-        return this._end.promise;
-    },
-
-    _readFiles: function(){
-        var defer = Q.defer();
-
-        console.log('start moving files');
-        var picLength = 0
-        for(var i in this.side){
-            for(var k in this.cameras){
-                //foreach cameras / side
-                var folder = this.path+this.side[i]+this.cameras[k]+'/';
-                if(fs.existsSync(folder)){
-                    var pictures = fs.readdirSync(folder);
-                    picLength += pictures.length;
-                    for(var index in pictures){
-                        //
-                        this._rename(pictures[index], folder).then(function(){
-                            picLength--;
-                            if(picLength == 0){
-                                console.log('moving pics ends'.green);
-                                defer.resolve();
-                            }
+                        console.log('end moving files'.green)
+                        that._startResize(function(){
+                            console.log('end resize'.green)
+                            callback();
                         });
                     }
                 }
-            }
+            });
         }
 
-        return defer.promise;
+        loop(this.sides, this.cameras);
     },
 
-    _rename: function(pic, folder){
-        var defer = Q.defer();
+    start: function(side, camera, callback){
+        var that = this;
 
+        this.side = side;
+        this.camera = camera;
+
+        var pictures = this._readFiles();
+        var index = 0;
+
+        
+        var loop = function(pictures){
+            
+            that._rename(pictures[index], that.path+side+camera+'/', function(){
+                index++;
+                if(index < pictures.length){
+                    loop(pictures);
+                }else{
+                    callback();
+                }
+            });
+        }
+
+        if(pictures.length > 0){
+            loop(pictures);
+        }else{
+            callback();
+        }
+
+    },
+
+    _readFiles: function(){
+
+        var pictures = [];
+        //
+        var folder = this.path+this.side+this.camera+'/';
+        if(fs.existsSync(folder)){
+            pictures = fs.readdirSync(folder);
+        }
+
+        return pictures;
+
+    },
+
+    _rename: function(pic, folder, callback){
         var that = this;
         gm(folder+pic).size(function (err, size) {
+            
             if (!err){
                 //Check if the picture is correct
                 if(size.width == size.height && size.width > 255){
-                    fs.renameSync(folder+pic, that.path+'merge/'+pic);
+                    that._picNumber++;
+                    var name = that.pad(String(that._picNumber), 5)
+                    fs.renameSync(folder+pic, that.path+'merge/'+name+".jpg");
                 }
-                defer.resolve();
+
+                callback();
             }else{
                 console.log(err);
-                defer.reject();
             }
         });
 
-        return defer.promise;
     },
 
-    _resize: function(){
+    pad: function(str, max){
+        return str.length < max ? this.pad("0" + str, max) : str;
+    },
+
+    _startResize: function(callback){
+        var that = this;
         var pictures = fs.readdirSync(this.path+"merge/");
-        for(var i in pictures){
-            gm(this.path+"merge/"+pictures[i])
-                .resize(256, 256)
-                .write(this.path+"merge/"+pictures[i], function (err) {
-                    if (err){console.log(err);} 
-                });
+        var index = 0;
+        console.log('start resize'.cyan);
+
+        var loop = function(pictures){
+            that._resize(that.path+'merge/'+pictures[index], function(){
+                index++;
+                if(index < pictures.length){
+                    loop(pictures);
+                }else{
+                    callback();
+                }
+            });
         }
+
+        loop(pictures);
+    },
+
+    _resize: function(picture, callback){
+
+        gm(picture)
+            .resize(256, 256)
+            .write(picture, function (err) {
+                if (err){console.log(err);}
+                callback();
+            });
     }
 
 };
