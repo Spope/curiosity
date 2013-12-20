@@ -11,6 +11,7 @@
       "cheerio"                         : "*",
       "q"                               : "*",
       "gm"                              : "*",
-      "colors"                          : "*"
+      "colors"                          : "*",
+      "mocha"                           : "*"
   }
 }

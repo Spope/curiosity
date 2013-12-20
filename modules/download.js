@@ -11,18 +11,20 @@ module.exports = {
     camera: null,
 
     listingUrl: 'http://mars.jpl.nasa.gov/msl/multimedia/raw/',
-
+    previousSol: 0,
 
     _urls: [],
     _index: 0,
+    _path: 'exports/',
     _end: null,
-    previousSol: 0,
+    _loading: 0,
+    
 
     loadPics: function(callback){
         var si = 0;
         var ci = 0;
         var that = this;
-        this.previousSol = fs.readFileSync('exports/last-sol.txt');
+
         var loop = function(sides, cameras){
             that.start(sides[si], cameras[ci], function(){
                 ci++;
@@ -41,7 +43,9 @@ module.exports = {
             });
         }
 
-        loop(this.sides, this.cameras);
+        this.getAddresses().then(function(){
+            loop(that.sides, that.cameras);
+        });
     },
 
     start: function(side, camera, callback){
@@ -52,9 +56,7 @@ module.exports = {
 
         var that = this;
 
-        this.getAddresses().then(function(){
-            that.nextPage();
-        });
+        that.nextPage();
 
         this._end.promise.then(function(){
             console.log('next camera'.cyan);
@@ -65,7 +67,9 @@ module.exports = {
     getAddresses: function(){
         var defer = Q.defer();
         var that = this;
-        console.log('Requesting : listing');
+        this.previousSol = fs.readFileSync(this._path+'last-sol.txt');
+
+        console.log('Requesting'.cyan+' : listing');
         request({ 'uri' : this.listingUrl }, function (err, response, body){
 
             if (err || response.statusCode != 200) {
@@ -77,13 +81,20 @@ module.exports = {
             //loading page into cheerio
             var $ = cheerio.load(body);
             //retrieving <a> list
-            var list = $('body').find('div.image_title:contains("Front Hazard Avoidance Cameras (Front Hazcams)")').next().children('.image_list').children('ul').children('li').children('a').toArray();
+            var list = $('body')
+            .find('div.image_title:contains("Front Hazard Avoidance Cameras (Front Hazcams)")')
+            .next()
+            .children('.image_list')
+            .children('ul')
+            .children('li')
+            .children('a')
+            .toArray();
 
             var sol;
             for(var i in list){
                 var url = list[i].attribs.href;
                 url = url.replace('./', 'http://mars.jpl.nasa.gov/msl/multimedia/raw/');
-                sol = list[i].children[0].data;
+                sol = $(list[i].children).text();
                 sol = sol.split('\n');
                 sol = sol[1];
                 if(i == 0){
@@ -91,9 +102,10 @@ module.exports = {
                     if(that.previousSol == sol){
                         console.log('No new pictures'.green);
                         defer.resolve();
+
                         return true;
                     }else{
-                        fs.writeFileSync('exports/last-sol.txt', sol);
+                        fs.writeFileSync(that._path+'last-sol.txt', sol);
                         console.log('Sol saved!');
                     }
                 }
@@ -109,8 +121,12 @@ module.exports = {
     },
 
     nextPage: function(){
+        var that = this;
         if(this._index < this._urls.length){
-            this.loadPage(this._urls[this._index]);
+            this.loadPage(this._urls[this._index], function(body){
+                var list = that.parse(body);
+                that.download(list, that.nextPage);
+            });
             this._index++;
         }else{
             console.log('Scrapping pic ended');
@@ -118,9 +134,8 @@ module.exports = {
         }
     },
 
-    loadPage: function(url){
+    loadPage: function(url, callback){
         var that = this;
-        //var url = 'http://mars.jpl.nasa.gov/msl/multimedia/raw/?s=21&camera=FHAZ_'; //2
 
         request({ 'uri' : url }, function (err, response, body){
 
@@ -130,7 +145,8 @@ module.exports = {
             }
 
             console.log('Page loaded : '.green+' '+url);
-            that.parse(body);
+
+            callback(body);
         });
     },
 
@@ -139,19 +155,10 @@ module.exports = {
         var alt = 'Image taken by Front Hazcam: '+this.side+' '+this.camera;
         var $ = cheerio.load(html);
 
-        
         var list = $('body').find('img[alt="'+alt+'"][width="160"]').toArray();
-        var loading = 0;
-        if(list.length == 0){
-            this.nextPage();
-
-            return;
-        }
-        //
-        console.log('loading pics'.cyan);
+        var pics = [];
         for(var i in list){
             if(list[i].attribs && list[i].attribs.src){
-                //
                 var src = (list[i].attribs.src).replace('-thm.jpg', '.JPG');
                 var el = $(list[i]).parent().next().next().find('.RawImageUTC');
                 el.children().remove();
@@ -159,17 +166,32 @@ module.exports = {
                 picDate = picDate.replace(' UTC', '');
                 picDate = picDate.replace(/\s/g, '-');
                 picDate = picDate.replace(/:/g, '-');
-                console.log(picDate);
-                loading++;
-                this.saveImg(src, picDate+".jpg").then(function(){
-
-                    loading--;
-                    if(loading == 0){
-                        console.log('Pics loaded'.green);
-                        that.nextPage();
-                    }
+                pics.push({
+                    name: picDate,
+                    src: src
                 });
             }
+        }
+
+        return pics;
+    },
+
+    download: function(list, callback){
+        //
+        var that = this;
+        console.log('loading pics'.cyan);
+        for(var i in list){
+
+            console.log(list[i].name);
+            that._loading++;
+
+            this.saveImg(list[i].src, list[i].name+".jpg").then(function(){
+                that._loading--;
+                if(that._loading == 0){
+                    console.log('Pics loaded'.green);
+                    callback();
+                }
+            });
         }
     },
 
@@ -178,8 +200,7 @@ module.exports = {
         var defer = Q.defer();
 
         request.head(url, function(err, res, body){
-
-            var writer = fs.createWriteStream("exports/"+that.side+that.camera+"/"+filename);
+            var writer = fs.createWriteStream(that._path+that.side+that.camera+"/"+filename);
             var dl = request(url)
                 .on('end', function(){
                     defer.resolve(true);
