@@ -5,7 +5,7 @@ var Q       = require('q');
 
 module.exports = {
 
-    sides: ['Right'],
+    sides: ['Left'],
     cameras: ['A', 'B'],
     side: null,
     camera: null,
