@@ -21,6 +21,8 @@ Last Sol scrapped will be saved into **exports/last-sol.txt** so only new pictur
     * q
     * gm
     * colors
+    * mocha
+    * grunt
 * imagemagick
 * graphicsmagick
 * ffmpeg
@@ -45,3 +47,9 @@ It will save images into **exports/{Left}{A}/{date}.jpg**
 Then they'll be merged, named (00001.jpg) and sized (256X256px) into **exports/merge/**
 
 Finally the video will be in **exports/video.mp4**
+
+###Tests
+
+Tests can be run with grunt
+
+	grunt default
