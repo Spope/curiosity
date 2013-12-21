@@ -100,7 +100,6 @@ module.exports = {
                     that.currentLastSol = sol;
 
                     //I look if I had already scraped this sol
-                    console.log(that.previousSol+" == "+sol);
                     if(that.previousSol == sol){
                         console.log('No new pictures'.green);
                         defer.resolve();

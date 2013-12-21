@@ -82,7 +82,12 @@ module.exports = {
         //resize picture of this folder
         if(fs.existsSync(folder)){
             pictures = fs.readdirSync(folder);
+
+            pictures.sort(function(a, b) {
+                return a < b ? -1 : 1;
+            })
         }
+
 
         return pictures;
 
@@ -116,7 +121,6 @@ module.exports = {
 
     _resize: function(picture, callback){
 
-        console.log('get size : '+picture);
         var pic = gm(picture);
 
         pic.size(function(err, size){
