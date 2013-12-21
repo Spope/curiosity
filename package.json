@@ -12,6 +12,9 @@
       "q"                               : "*",
       "gm"                              : "*",
       "colors"                          : "*",
-      "mocha"                           : "*"
+      "mocha"                           : "*",
+      "grunt"                           : "*",
+      "grunt-cli"                       : "*",
+      "grunt-mocha-test"                : "*"
   }
 }
