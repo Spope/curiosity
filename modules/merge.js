@@ -55,7 +55,7 @@ module.exports = {
 
         
         var loop = function(pictures){
-            
+
             that._rename(pictures[index], that.path+side+camera+'/', function(){
                 index++;
                 if(index < pictures.length){
@@ -90,7 +90,7 @@ module.exports = {
     _rename: function(pic, folder, callback){
         var that = this;
         gm(folder+pic).size(function (err, size) {
-            
+
             if (!err){
                 //Check if the picture is correct
                 if(size.width == size.height && size.width > 255){

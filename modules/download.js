@@ -9,17 +9,17 @@ module.exports = {
     cameras: ['A', 'B'],
     side: null,
     camera: null,
-
     listingUrl: 'http://mars.jpl.nasa.gov/msl/multimedia/raw/',
     previousSol: 0,
+    currentLastSol:0,
+    path: 'exports/',
 
     _urls: [],
     _index: 0,
-    _path: 'exports/',
+    
     _end: null,
     _loading: 0,
     
-
     loadPics: function(callback){
         var si = 0;
         var ci = 0;
@@ -66,7 +66,7 @@ module.exports = {
     getAddresses: function(){
         var defer = Q.defer();
         var that = this;
-        this.previousSol = fs.readFileSync(this._path+'last-sol.txt');
+        this.previousSol = fs.readFileSync(this.path+'last-sol.txt');
 
         console.log('Requesting'.cyan+' : listing');
         request({ 'uri' : this.listingUrl }, function (err, response, body){
@@ -104,8 +104,7 @@ module.exports = {
 
                         return true;
                     }else{
-                        fs.writeFileSync(that._path+'last-sol.txt', sol);
-                        console.log('Sol saved!');
+                        that.currentLastSol = sol;
                     }
                 }
 
@@ -129,6 +128,8 @@ module.exports = {
             this._index++;
         }else{
             console.log('Scrapping pic ended');
+            fs.writeFileSync(that.path+'last-sol.txt', this.currentLastSol);
+            console.log('Sol saved!');
             this._end.resolve();
         }
     },
@@ -202,7 +203,7 @@ module.exports = {
         var defer = Q.defer();
 
         request.head(url, function(err, res, body){
-            var writer = fs.createWriteStream(that._path+that.side+that.camera+"/"+filename);
+            var writer = fs.createWriteStream(that.path+that.side+that.camera+"/"+filename);
             var dl = request(url)
                 .on('end', function(){
                     defer.resolve(true);

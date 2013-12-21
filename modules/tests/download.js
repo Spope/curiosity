@@ -66,7 +66,7 @@ describe('Download', function() {
 
     describe('download', function(){
 
-        it('should download pictures from given URLs', function(done){
+        it('should download the 3 pictures from given URLs', function(done){
             this.timeout(6000);
 
             var p = Download.download(list, function(){
