@@ -193,7 +193,7 @@ module.exports = {
                     console.log('Pics loaded'.green);
                     callback();
                 }
-            });
+            }).done();
         }
     },
 
@@ -202,7 +202,6 @@ module.exports = {
         var defer = Q.defer();
 
         request.head(url, function(err, res, body){
-            console.log('done');
             var writer = fs.createWriteStream(that._path+that.side+that.camera+"/"+filename);
             var dl = request(url)
                 .on('end', function(){

@@ -58,22 +58,21 @@ describe('Download', function() {
     describe('parse', function(){
 
         it('should extract pictures URLs from the body', function(){
-
             list = Download.parse(html);
-            assert.equal(list.length, 3)
+            assert.equal(list.length, 3);
         });
     });
 
+
     describe('download', function(){
 
-        it('should download pictures from given URLs', function(){
+        it('should download pictures from given URLs', function(done){
+            this.timeout(6000);
 
-            Download.download(list, function(){
-
-                var pictures = fs.readdirSync("exports/merge/");
-
-                console.log(pictures);
-                assert.equal(pictures.length, 4);
+            var p = Download.download(list, function(){
+                var pictures = fs.readdirSync("exports/RightB/");
+                assert.equal(pictures.length, 3);
+                done();
             });
         });
     });
