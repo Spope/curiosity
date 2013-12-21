@@ -10,7 +10,7 @@ module.exports = {
     side: null,
     path: 'exports/',
 
-    _picNumber: 0,
+    _picNumber: fs.readdirSync('exports/merge/').length,
 
     merge: function(callback){
         var si = 0;
@@ -144,10 +144,10 @@ module.exports = {
         gm(folder+pic).size(function (err, size) {
 
             if (!err){
-                //Check if the picture is correct
                 that._picNumber++;
                 var name = that.pad(String(that._picNumber), 5)
                 fs.renameSync(folder+pic, that.path+'merge/'+name+".jpg");
+                
 
                 callback();
             }else{
