@@ -32,10 +32,7 @@ module.exports = {
                     }else{
 
                         console.log('end moving files'.green)
-                        that._startResize(function(){
-                            console.log('end resize'.green)
-                            callback();
-                        });
+                        callback();
                     }
                 }
             });
@@ -50,10 +47,9 @@ module.exports = {
         this.side = side;
         this.camera = camera;
 
-        var pictures = this._readFiles();
+        var pictures;
         var index = 0;
 
-        
         var loop = function(pictures){
 
             that._rename(pictures[index], that.path+side+camera+'/', function(){
@@ -66,19 +62,24 @@ module.exports = {
             });
         }
 
-        if(pictures.length > 0){
-            loop(pictures);
-        }else{
-            callback();
-        }
+        this._startResize(function(){
+            pictures = that._readFiles();
+            if(pictures.length > 0){
+                loop(pictures);
+            }else{
+                callback();
+            }
+        });
 
     },
 
     _readFiles: function(){
 
+        console.log('readFiles');
         var pictures = [];
         //
         var folder = this.path+this.side+this.camera+'/';
+        //resize picture of this folder
         if(fs.existsSync(folder)){
             pictures = fs.readdirSync(folder);
         }
@@ -87,17 +88,62 @@ module.exports = {
 
     },
 
+    _startResize: function(callback){
+        var that = this;
+        var folder = this.path+this.side+this.camera+'/';
+        var pictures = that._readFiles();
+        var index = 0;
+        console.log('start resize'.cyan);
+
+        var loop = function(pictures){
+            that._resize(folder+pictures[index], function(){
+                index++;
+                if(index < pictures.length){
+                    loop(pictures);
+                }else{
+                    console.log('end resize'.green)
+                    callback();
+                }
+            });
+        }
+
+        if(pictures.length > 0){
+            loop(pictures);
+        }else{
+            callback();
+        }
+    },
+
+    _resize: function(picture, callback){
+
+        console.log('get size : '+picture);
+        var pic = gm(picture);
+
+        pic.size(function(err, size){
+
+            if(err){console.log(err)};
+            if(size.width == size.height && size.width > 255){
+                pic.resize(256, 256)
+                .write(picture, function (err) {
+                    if (err){console.log(err);}
+                    callback();
+                });
+            }else{
+                fs.unlinkSync(picture);
+                callback();
+            }
+        });
+    },
+
     _rename: function(pic, folder, callback){
         var that = this;
         gm(folder+pic).size(function (err, size) {
 
             if (!err){
                 //Check if the picture is correct
-                if(size.width == size.height && size.width > 255){
-                    that._picNumber++;
-                    var name = that.pad(String(that._picNumber), 5)
-                    fs.renameSync(folder+pic, that.path+'merge/'+name+".jpg");
-                }
+                that._picNumber++;
+                var name = that.pad(String(that._picNumber), 5)
+                fs.renameSync(folder+pic, that.path+'merge/'+name+".jpg");
 
                 callback();
             }else{
@@ -109,36 +155,6 @@ module.exports = {
 
     pad: function(str, max){
         return str.length < max ? this.pad("0" + str, max) : str;
-    },
-
-    _startResize: function(callback){
-        var that = this;
-        var pictures = fs.readdirSync(this.path+"merge/");
-        var index = 0;
-        console.log('start resize'.cyan);
-
-        var loop = function(pictures){
-            that._resize(that.path+'merge/'+pictures[index], function(){
-                index++;
-                if(index < pictures.length){
-                    loop(pictures);
-                }else{
-                    callback();
-                }
-            });
-        }
-
-        loop(pictures);
-    },
-
-    _resize: function(picture, callback){
-
-        gm(picture)
-            .resize(256, 256)
-            .write(picture, function (err) {
-                if (err){console.log(err);}
-                callback();
-            });
     }
 
 };

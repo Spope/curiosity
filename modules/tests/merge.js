@@ -34,16 +34,33 @@ describe('Merge', function() {
         });
     });
 
-    after(function(){
-        emptyFolder('exports/RightB/');
-        emptyFolder('exports/merge/');
-    });
+    //after(function(){
+        //emptyFolder('exports/RightB/');
+        //emptyFolder('exports/merge/');
+    //});
 
     describe('readFiles', function(){
         it('should return array of files', function(){
             var files = Merge._readFiles();
             assert.equal(files.length, 12);
         })
+    });
+
+    describe('resize', function(){
+
+        it('should resize the picture to 256X256 and delete non square pictures', function(done){
+
+            Merge._startResize(function(){
+
+                console.log(Merge._readFiles().length);
+                gm('exports/RightB/2013-12-06-04-52-12.jpg').size(function (err, size) {
+                    assert.equal(size.width, 256);
+                    assert.equal(size.height, 256);
+
+                    done();
+                });
+            });
+        });
     });
 
     describe('rename', function(){
@@ -60,32 +77,6 @@ describe('Merge', function() {
             });
         });
 
-        it('should not move the picture because of its non square size', function(done){
-            this.timeout(5000);
-
-            Merge._rename('2013-12-06-04-24-23.jpg', 'exports/RightB/', function(){
-                var pics = fs.readdirSync('exports/merge/');
-                assert.equal(pics.length, 1);
-
-                done();
-            });
-        });
-    });
-
-    describe('resize', function(){
-
-        it('should resize the picture to 256X256', function(done){
-
-            Merge._resize('exports/merge/00001.jpg', function(){
-
-                gm('exports/merge/00001.jpg').size(function (err, size) {
-                    assert.equal(size.width, 256);
-                    assert.equal(size.height, 256);
-
-                    done();
-                });
-            });
-        });
     });
 
 })

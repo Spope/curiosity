@@ -97,14 +97,15 @@ module.exports = {
                 sol = sol.split('\n');
                 sol = sol[1];
                 if(i == 0){
+                    that.currentLastSol = sol;
+
                     //I look if I had already scraped this sol
+                    console.log(that.previousSol+" == "+sol);
                     if(that.previousSol == sol){
                         console.log('No new pictures'.green);
                         defer.resolve();
 
                         return true;
-                    }else{
-                        that.currentLastSol = sol;
                     }
                 }
 

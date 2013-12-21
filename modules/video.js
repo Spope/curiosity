@@ -18,7 +18,13 @@ module.exports = {
         var dest    = './exports/video.mp4';
 
         console.log('start video encoding'.cyan);
-        exec("ffmpeg -r 10 -qscale 1 -i "+sources+" "+dest, puts);
+        /*
+         * -i input name
+         * -r framerate
+         * -y overwrite
+         * -qscale 1 > max quality
+         */
+        exec("ffmpeg -r 10 -y -qscale 1 -i "+sources+" "+dest, puts);
 
     }
 };
