@@ -34,10 +34,10 @@ describe('Merge', function() {
         });
     });
 
-    //after(function(){
-        //emptyFolder('exports/RightB/');
-        //emptyFolder('exports/merge/');
-    //});
+    after(function(){
+        emptyFolder('exports/RightB/');
+        emptyFolder('exports/merge/');
+    });
 
     describe('readFiles', function(){
         it('should return array of files', function(){
@@ -52,7 +52,6 @@ describe('Merge', function() {
 
             Merge._startResize(function(){
 
-                console.log(Merge._readFiles().length);
                 gm('exports/RightB/2013-12-06-04-52-12.jpg').size(function (err, size) {
                     assert.equal(size.width, 256);
                     assert.equal(size.height, 256);

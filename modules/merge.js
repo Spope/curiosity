@@ -75,7 +75,6 @@ module.exports = {
 
     _readFiles: function(){
 
-        console.log('readFiles');
         var pictures = [];
         //
         var folder = this.path+this.side+this.camera+'/';
