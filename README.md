@@ -24,7 +24,6 @@ Last Sol scrapped will be saved into **exports/last-sol.txt** so only new pictur
     * mocha
     * grunt
 * imagemagick
-* graphicsmagick
 * ffmpeg
 
 
@@ -37,7 +36,6 @@ Go into **root/** and run
 
 	//If not installed
     sudo apt-get install imagemagick
-	sudo apt-get install graphicsmagick
 
 ###Execution
 	node index.js

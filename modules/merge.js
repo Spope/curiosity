@@ -1,5 +1,5 @@
 var fs = require('fs');
-var gm = require('gm');
+var gm = require('gm').subClass({ imageMagick: true });;
 var Q  = require('q');
 
 module.exports = {
