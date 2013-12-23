@@ -1,7 +1,3 @@
-var request = require('request');
-var cheerio = require('cheerio');
-var fs      = require('fs');
-var Q       = require('q');
 var colors  = require('colors');
 
 var Download= require('./modules/download');
@@ -15,5 +11,3 @@ Download.loadPics(function(){
     });
 });
 
-
-//Video.convert();

@@ -8,7 +8,7 @@ The script will load [http://mars.jpl.nasa.gov/msl/multimedia/raw/](http://mars.
 
 Then for each Sol, it will load the page and parse the pictures links. You can select which camera (A - B) and which side (Left - Right).
 
-It will avoid downloading thumbnails. Then it will remove non square pictures (somes are) and reduces them to 256X256px. After that, ffmpeg will create a .mp4 video at 10fps.
+It will avoid downloading thumbnails. Then it will remove non square pictures (somes are) and reduces them to 256X256px. After that, ffmpeg will create a .ogg video at 10fps.
 
 Last Sol scrapped will be saved into **exports/last-sol.txt** so only new picture will be scraped.
 
@@ -44,7 +44,7 @@ It will save images into **exports/{Left}{A}/{date}.jpg**
 
 Then they'll be merged, named (00001.jpg) and sized (256X256px) into **exports/merge/**
 
-Finally the video will be in **exports/video.mp4**
+Finally the video will be in **exports/video.ogg**
 
 ###Tests
 
