@@ -38,7 +38,7 @@ Go into **root/** and run
     sudo apt-get install imagemagick
 
 ###Execution
-	node index.js
+	node app.js
 
 It will save images into **exports/{Left}{A}/{date}.jpg**
 
