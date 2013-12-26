@@ -7,7 +7,19 @@ var Download;
 var html;
 var list;
 
+var emptyFolder = function(folder){
+    var pics = fs.readdirSync(folder);
+    for(var i in pics){
+        fs.unlinkSync(folder+pics[i]);
+    }
+}
+
 describe('Download', function() {
+
+    before(function(){
+        emptyFolder('exports/RightB/');
+        emptyFolder('exports/merge/');
+    });
 
     //Configuration of test data
     beforeEach(function(done) {
@@ -20,6 +32,11 @@ describe('Download', function() {
         Download.camera = 'B';
 
         done();
+    });
+
+    after(function(){
+        emptyFolder('exports/RightB/');
+        emptyFolder('exports/merge/');
     });
 
 
