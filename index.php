@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Curiosity's Trip</title>
 </head>
 <body>
 <div id="global">
@@ -26,7 +26,7 @@
         <p>The video is composed of <?php echo count(glob('exports/merge/*.jpg')); ?> pictures and play at 10fps. The last parsed sol is <?php echo file_get_contents('exports/last-sol.txt'); ?></p>
         </section>
         <section>
-            If you have any questions, feel free to  <a href="https://twitter.com/spopila" target="_blank" title="Contact me on tiwtter">contact me on Twitter</a>, for bugs or improvement, <a href="https://github.com/Spope/curiosity/issues" title="Issue on Github" target="_blank">open an issue on Github</a>.
+            If you have any questions, feel free to  <a href="https://twitter.com/spopila" target="_blank" title="Contact me on tiwtter">contact me on Twitter</a>, for bugs or improvements, <a href="https://github.com/Spope/curiosity/issues" title="Issue on Github" target="_blank">open an issue on Github</a>.
         </section>
 
         <a href="https://github.com/Spope/curiosity"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
