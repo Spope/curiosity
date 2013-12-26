@@ -12,6 +12,7 @@
         </header>
 
         <section>
+            <h2>This page is a WIP.</h2>
             <p>Welcome to Curiosity's Trip.</p>
             <p>This script is aimed to retrieve Curiosity's pictures (available on <a href="http://mars.jpl.nasa.gov/msl/multimedia/raw/" title="Curiosity's raw pictures" target="_blank">JPL's website</a>) to create a video of its trip.</p>
             <p>It download pictures from Front Hazard Avoidance Cameras (Front Hazcams). I have choosen this camera because it look in front of the rover and it won't rotate or move. The script check either A and B side cameras. A-side which is linked to main computer had worked until February when a memory glitch corrupted main computer, so backup or B-side computer has been switched on to replace A-side during its debugging. So from Sol 215 to now, pictures are taken with B-side.</p>
