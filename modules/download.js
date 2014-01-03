@@ -18,7 +18,6 @@ module.exports = {
     _index: 0,
     
     _end: null,
-    _loading: 0,
     
     loadPics: function(callback){
         var si = 0;
@@ -187,9 +186,7 @@ module.exports = {
         var promises = [];
         for(var i in list){
             console.log(list[i].name);
-
             var promise = this.saveImg(list[i].src, list[i].name+".jpg");
-
             promises.push(promise);
         }
 

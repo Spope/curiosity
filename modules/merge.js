@@ -140,20 +140,11 @@ module.exports = {
 
     _rename: function(pic, folder, callback){
         var that = this;
-        gm(folder+pic).size(function (err, size) {
+        that._picNumber++;
+        var name = that.pad(String(that._picNumber), 5)
+        fs.renameSync(folder+pic, that.path+'merge/'+name+".jpg");
 
-            if (!err){
-                that._picNumber++;
-                var name = that.pad(String(that._picNumber), 5)
-                fs.renameSync(folder+pic, that.path+'merge/'+name+".jpg");
-                
-
-                callback();
-            }else{
-                console.log(err);
-            }
-        });
-
+        callback();
     },
 
     pad: function(str, max){
