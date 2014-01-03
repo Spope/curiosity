@@ -63,6 +63,22 @@ module.exports = {
         });
     },
 
+    nextPage: function(){
+        var that = this;
+        if(this._index < this._urls.length){
+            this.loadPage(this._urls[this._index], function(body){
+                var list = that.parse(body);
+                that.download(list, function(){that.nextPage();});
+            });
+            this._index++;
+        }else{
+            console.log('Scrapping pic ended');
+            fs.writeFileSync(that.path+'last-sol.txt', this.currentLastSol);
+            console.log('Sol saved!');
+            this._end.resolve();
+        }
+    },
+
     getAddresses: function(){
         var defer = Q.defer();
         var that = this;
@@ -118,22 +134,6 @@ module.exports = {
         return defer.promise;
     },
 
-    nextPage: function(){
-        var that = this;
-        if(this._index < this._urls.length){
-            this.loadPage(this._urls[this._index], function(body){
-                var list = that.parse(body);
-                that.download(list, function(){that.nextPage();});
-            });
-            this._index++;
-        }else{
-            console.log('Scrapping pic ended');
-            fs.writeFileSync(that.path+'last-sol.txt', this.currentLastSol);
-            console.log('Sol saved!');
-            this._end.resolve();
-        }
-    },
-
     loadPage: function(url, callback){
         var that = this;
 
@@ -184,18 +184,20 @@ module.exports = {
             callback();
             return;
         }
+        var promises = [];
         for(var i in list){
             console.log(list[i].name);
-            this._loading++;
 
-            this.saveImg(list[i].src, list[i].name+".jpg").then(function(){
-                that._loading--;
-                if(that._loading == 0){
-                    console.log('Pics loaded'.green);
-                    callback();
-                }
-            }).done();
+            var promise = this.saveImg(list[i].src, list[i].name+".jpg");
+
+            promises.push(promise);
         }
+
+        Q.all(promises).then(function(){
+            console.log('Pics loaded'.green);
+            callback();
+        }).done();
+
     },
 
     saveImg: function(url, filename){
