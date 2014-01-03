@@ -41,7 +41,7 @@ describe('Merge', function() {
 
     describe('readFiles', function(){
         it('should return array of files', function(){
-            var files = Merge._readFiles();
+            var files = Merge.readFiles();
             assert.equal(files.length, 12);
         })
     });
@@ -50,7 +50,7 @@ describe('Merge', function() {
 
         it('should resize the picture to 256X256 and delete non square pictures', function(done){
 
-            Merge._startResize(function(){
+            Merge.startResize(function(){
 
                 gm('exports/RightB/2013-12-06-04-52-12.jpg').size(function (err, size) {
                     assert.equal(size.width, 256);
@@ -67,7 +67,7 @@ describe('Merge', function() {
         it('should move the picture to the merge folder and rename it', function(done){
             this.timeout(5000);
 
-            Merge._rename('2013-12-06-02-37-38.jpg', 'exports/RightB/', function(){
+            Merge.rename('2013-12-06-02-37-38.jpg', 'exports/RightB/', function(){
                 var pics = fs.readdirSync('exports/merge/');
                 assert.equal(pics.length, 1);
                 assert.equal(pics[0], '00001.jpg');
