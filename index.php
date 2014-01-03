@@ -26,7 +26,9 @@
 
         <section>
             <h3>Video</h3>
-            <video src="exports/video.ogg" controls width="256" height="256" preload="auto">
+            <video controls width="256" height="256" preload="auto">
+                <source src="exports/video.mp4" type="video/mp4">
+                <source src="exports/video.ogg" type="video/ogg">
                 Curiosity's trip into video.
             </video>
         

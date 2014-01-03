@@ -6,16 +6,9 @@ module.exports = {
 
     convert: function(){
 
-        function puts(error, stdout, stderr) {
-            console.log('stdout: ' + stdout);
-            console.log('stderr: ' + stderr);
-            if (error !== null) {
-                console.log('exec error: ' + error);
-            }
-        }
-
         var sources = './exports/merge/%05d.jpg';
-        var dest    = './exports/video.ogg';
+        var destMP4 = './exports/video.mp4';
+        var destOGG = './exports/video.ogg';
 
         console.log('start video encoding'.cyan);
         /*
@@ -24,8 +17,20 @@ module.exports = {
          * -y overwrite
          * -qscale 1 > max quality
          */
-        //exec("ffmpeg -r 10 -y -qscale 1 -i "+sources+" "+dest, puts);
-        exec("ffmpeg -r 10 -y -qscale 15 -i "+sources+" "+dest, puts);
+        exec("ffmpeg -r 10 -y -qscale 1 -i "+sources+" "+destMP4, function(error, stdout, stderr){
+            console.log('MP4 video encoded'.green);
 
+            if (error !== null) {
+                console.log('exec error: '.red + error);
+            }
+
+            exec("ffmpeg -r 10 -y -qscale 15 -i "+sources+" "+destOGG, function(error, stdout, stderr){
+                console.log('OGG video encoded'.green);
+
+                if (error !== null) {
+                    console.log('exec error: '.red + error);
+                }
+            });
+        });
     }
 };
