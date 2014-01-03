@@ -44,7 +44,7 @@ It will save images into **exports/{Left}{A}/{date}.jpg**
 
 Then they'll be merged, named (00001.jpg) and sized (256X256px) into **exports/merge/**
 
-Finally the video will be in **exports/video.ogg**
+Finally the video will be in **exports/video.mp4** and **exports/video.ogg**
 
 ###Tests
 
