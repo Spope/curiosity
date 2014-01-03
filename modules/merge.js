@@ -52,7 +52,7 @@ module.exports = {
 
         var loop = function(pictures){
 
-            that._rename(pictures[index], that.path+side+camera+'/', function(){
+            that.rename(pictures[index], that.path+side+camera+'/', function(){
                 index++;
                 if(index < pictures.length){
                     loop(pictures);
@@ -62,8 +62,8 @@ module.exports = {
             });
         }
 
-        this._startResize(function(){
-            pictures = that._readFiles();
+        this.startResize(function(){
+            pictures = that.readFiles();
             if(pictures.length > 0){
                 loop(pictures);
             }else{
@@ -73,7 +73,7 @@ module.exports = {
 
     },
 
-    _readFiles: function(){
+    readFiles: function(){
 
         var pictures = [];
         //
@@ -92,15 +92,15 @@ module.exports = {
 
     },
 
-    _startResize: function(callback){
+    startResize: function(callback){
         var that = this;
         var folder = this.path+this.side+this.camera+'/';
-        var pictures = that._readFiles();
+        var pictures = that.readFiles();
         var index = 0;
         console.log('start resize'.cyan);
 
         var loop = function(pictures){
-            that._resize(folder+pictures[index], function(){
+            that.resize(folder+pictures[index], function(){
                 index++;
                 if(index < pictures.length){
                     loop(pictures);
@@ -118,7 +118,7 @@ module.exports = {
         }
     },
 
-    _resize: function(picture, callback){
+    resize: function(picture, callback){
 
         var pic = gm(picture);
 
@@ -138,7 +138,7 @@ module.exports = {
         });
     },
 
-    _rename: function(pic, folder, callback){
+    rename: function(pic, folder, callback){
         var that = this;
         that._picNumber++;
         var name = that.pad(String(that._picNumber), 5)
