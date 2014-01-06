@@ -4,7 +4,7 @@ var config  = require('./config/config');
 var connection = require('./modules/connection')(config.db, false);
 
 var Download= require('./modules/download')(connection);
-var Merge   = require('./modules/merge');
+var Merge   = require('./modules/merge')(connection);
 var Video   = require('./modules/video');
 
 
