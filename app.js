@@ -1,13 +1,21 @@
 var colors  = require('colors');
+var Knex = require('knex');
+var config  = require('./config/config');
+var connection = require('./modules/connection')(config.db, false);
 
 var Download= require('./modules/download');
 var Merge   = require('./modules/merge');
 var Video   = require('./modules/video');
 
-
+/*
 Download.loadPics(function(){
     Merge.merge(function(){
         Video.convert();
     });
 });
+*/
+var test = connection('sol').select('id', 'sol').then(function(rows){
+    console.log(rows);
+}).done();
+
 
