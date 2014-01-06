@@ -19,6 +19,7 @@
       "grunt-contrib-watch"             : "~0.5.3",
       "grunt-contrib-less"              : "*",
       "knex"                            : "*",
-      "mysql"                           : "2.0.0-rc2"
+      "mysql"                           : "2.0.0-rc2",
+      "moment"                          : "*"
   }
 }
