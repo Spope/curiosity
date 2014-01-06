@@ -16,14 +16,15 @@ module.exports = {
 
     _urls: [],
     _index: 0,
-    
+
     _end: null,
-    
+
     loadPics: function(callback){
         var si = 0;
         var ci = 0;
         var that = this;
 
+        //Loop on each cameras / sides
         var loop = function(sides, cameras){
             that.start(sides[si], cameras[ci], function(){
                 ci++;
@@ -48,36 +49,6 @@ module.exports = {
         });
     },
 
-    start: function(side, camera, callback){
-        this._end = Q.defer();
-        this.side = side;
-        this.camera = camera;
-        console.log('start scrapping : '.cyan+side+camera);
-
-        this.nextPage();
-
-        this._end.promise.then(function(){
-            console.log('next camera'.cyan);
-            callback();
-        });
-    },
-
-    nextPage: function(){
-        var that = this;
-        if(this._index < this._urls.length){
-            this.loadPage(this._urls[this._index], function(body){
-                var list = that.parse(body);
-                that.download(list, function(){that.nextPage();});
-            });
-            this._index++;
-        }else{
-            console.log('Scrapping pic ended');
-            fs.writeFileSync(that.path+'last-sol.txt', this.currentLastSol);
-            console.log('Sol saved!');
-            this._end.resolve();
-        }
-    },
-
     getAddresses: function(){
         var defer = Q.defer();
         var that = this;
@@ -91,7 +62,7 @@ module.exports = {
                 return;
             }
 
-            console.log('Reveived'.green+' : listing')
+            console.log('Received'.green+' : listing')
             //loading page into cheerio
             var $ = cheerio.load(body);
             //retrieving <a> list
@@ -133,6 +104,37 @@ module.exports = {
         return defer.promise;
     },
 
+    start: function(side, camera, callback){
+        this._end = Q.defer();
+        this.side = side;
+        this.camera = camera;
+        console.log('start scrapping : '.cyan+side+camera);
+
+        this.nextPage();
+
+        this._end.promise.then(function(){
+            console.log('next camera'.cyan);
+            callback();
+        });
+    },
+
+    nextPage: function(){
+        var that = this;
+        if(this._index < this._urls.length){
+            this.loadPage(this._urls[this._index], function(body){
+                var list = that.parse(body);
+                that.download(list, function(){that.nextPage();});
+            });
+            this._index++;
+        }else{
+            console.log('Scrapping pic ended');
+            fs.writeFileSync(that.path+'last-sol.txt', this.currentLastSol);
+            console.log('Sol saved!');
+            this._end.resolve();
+        }
+    },
+
+    //Get the html of pictures listing page
     loadPage: function(url, callback){
         var that = this;
 
@@ -149,6 +151,7 @@ module.exports = {
         });
     },
 
+    //Retrieve url listing of pictures
     parse: function(html){
         var that = this;
         var alt = 'Image taken by Front Hazcam: '+this.side+' '+this.camera;

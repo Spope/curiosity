@@ -1,0 +1,12 @@
+module.exports = {
+
+    db: {
+        host: "localhost",
+        database: "curiosity",
+        user: "USER",
+        password: "PASS",
+        //
+        database_test: "curiosity_test"
+    }
+
+}

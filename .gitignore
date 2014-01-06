@@ -8,6 +8,8 @@
 /exports/last-sol.txt
 /exports/video.mp4
 /exports/video.ogg
+/config/config.js
+
 
 *~
 *.lock
