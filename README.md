@@ -10,7 +10,7 @@ Then for each Sol, it will load the page and parse the pictures links. You can s
 
 It will avoid downloading thumbnails. Then it will remove non square pictures (somes are) and reduces them to 256X256px to increase pictures number (only a few are 1024px wide). After that, ffmpeg will create an .mp4 and .ogg videos at 10fps.
 
-Last scrapped sol will be saved into **exports/last-sol.txt** so only new sols will be scraped on next execution.
+Each downloaded picture will be saved into a MySQL database. It allow to scrap new sols only when executing the app.
 
 ##Specification
 
@@ -23,8 +23,11 @@ Last scrapped sol will be saved into **exports/last-sol.txt** so only new sols w
     * colors
     * mocha
     * grunt
+    * moment
+    * knex
 * imagemagick
 * ffmpeg
+* mysql
 
 
 ##Installation
