@@ -16,6 +16,7 @@ Download.loadPics(function(){
     });
 });
 
+
 //JSON generation
 //SELECT `sol`, COUNT( `id`) AS 'pictures' FROM `pictures` GROUP BY `sol`
 

@@ -31,8 +31,10 @@ module.exports = function(connection){
                             loop(sides, cameras);
                         }else{
 
-                            console.log('end moving files'.green)
-                            callback();
+                            console.log('end moving files'.green);
+                            that.generateTimeJSON(function(){
+                                callback();
+                            })
                         }
                     }
                 });
@@ -155,6 +157,26 @@ module.exports = function(connection){
             connection('pictures').where('temp_name', pic).update({'name': name+'.jpg'}).then(function(){
                 callback();
             });
+        },
+
+        generateTimeJSON: function(callback){
+            var that = this;
+            connection('pictures').select('sol', connection.raw('count(id) as total')).groupBy('sol').orderBy('sol', 'ASC').then(function(rows){
+
+                var temp = 0.0;
+                var time = {};
+                for (k in rows){
+                    var row = rows[k];
+                    temp += row.total;
+                    time[row.sol] = temp / 10;
+                }
+                
+                fs.writeFileSync(that.path+'sols.json', JSON.stringify(time));
+                console.log('sols.json generated'.green);
+
+                callback();
+
+            }).done();
         }
     };
 
