@@ -11,10 +11,12 @@ var Video   = require('./modules/video');
 Download.loadPics(function(){
     Merge.merge(function(){
         Video.convert();
+
+        connection.client.pool.destroy();
     });
 });
 
 //JSON generation
 //SELECT `sol`, COUNT( `id`) AS 'pictures' FROM `pictures` GROUP BY `sol`
 
-connection.client.pool.destroy();
+

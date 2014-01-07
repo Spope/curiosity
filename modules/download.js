@@ -129,7 +129,7 @@ module.exports = function(connection){
             this._end.promise.then(function(){
                 console.log('next camera'.cyan);
                 callback();
-            });
+            }).done();
         },
 
         nextPage: function(){
@@ -229,8 +229,11 @@ module.exports = function(connection){
             var writer = fs.createWriteStream(that.path+that.side+that.camera+"/"+filename);
             var dl = request(pic.src)
                 .on('end', function(){
-                    that.savePicture(pic);
-                    defer.resolve(true);
+                    that.savePicture(pic).then(function(){
+                        defer.resolve(true);
+                    }, function(){
+                        defer.reject();
+                    }).done();
                 })
                 .pipe(writer)
             ;
@@ -239,7 +242,9 @@ module.exports = function(connection){
         },
 
         savePicture: function(pic){
-            connection('pictures').where('original_name', pic.originalName).select('id').then(function(row){
+            var defer = Q.defer();
+            var query = connection('pictures').where('original_name', pic.originalName).select('id');
+            query.then(function(row){
 
                 if(row.length == 0) {
 
@@ -251,20 +256,25 @@ module.exports = function(connection){
                         sol           : pic.sol
                     }).then(function(){
                         console.log('pic saved : '.green+' '+pic.originalName);
-                        if(typeof(callback) == 'function'){
-                            callback();
-                        }
+                        defer.resolve();
 
                     }, function(err){
                         console.log('Error on saving picture to database'.red);
                         console.log(err);
-                    });
+                        defer.reject();
+                    }).done();
                 }else{
                     if(typeof(callback) == 'function'){
                         callback();
                     }
                 }
-            })
+            }, function(err){
+                console.log('The error'.red);
+                console.log(err);
+                defer.reject();
+            }).done();
+
+            return defer.promise;
         }
     };
 }
