@@ -24,7 +24,6 @@
         </header>
 
         <section>
-            <h2>This page is a WIP</h2>
 
             <h3>About</h3>
             <p>Welcome to Curiosity's Trip. It's a script aimed at retrieving Curiosity's pictures (available on <a href="http://mars.jpl.nasa.gov/msl/multimedia/raw/" title="Curiosity's raw pictures" target="_blank">JPL's website</a>) to create a video of its trip.</p>

@@ -1,5 +1,3 @@
-**Currently under dev**
-
 # Curiosity
 
 Script to download picutres taken by Curiosity chronologically.
