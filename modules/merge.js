@@ -144,7 +144,7 @@ module.exports = function(connection){
             var name = that.pad(String(that._picNumber), 5);
             fs.renameSync(folder+pic, that.path+'merge/'+name+".jpg");
 
-            this.saveNewName(pic, name, callback);
+            that.saveNewName(pic, name, callback);
         },
 
         pad: function(str, max){
@@ -152,10 +152,7 @@ module.exports = function(connection){
         },
 
         saveNewName: function(pic, name, callback){
-            connection('pictures')
-            .where('temp_name', pic)
-            .update({'name': name+'.jpg'})
-            .then(function(){
+            connection('pictures').where('temp_name', pic).update({'name': name+'.jpg'}).then(function(){
                 callback();
             });
         }

@@ -1,8 +1,8 @@
-var Q = require('q');
-var assert  = require('assert');
-var fs      = require('fs');
-var colors   = require('colors');
-var config  = require('../../config/config');
+var Q          = require('q');
+var assert     = require('assert');
+var fs         = require('fs');
+var colors     = require('colors');
+var config     = require('../../config/config');
 var connection = require('../connection').getConnection(config.db, true);
 
 var Download;
@@ -30,22 +30,6 @@ describe('Download', function() {
         }).done();
 
     });
-
-    //Configuration of test data
-    /*
-    beforeEach(function(done) {
-        this.timeout(10000);
-
-        Download = require('../download')(connection);
-        Download.side = 'Left';
-        Download.camera = 'B';
-
-        Download.getPreviousParsedSol().then(function(lastParsedSol){
-            Download.previousSol = lastParsedSol[0].sol;
-            done();
-        });
-    });
-    */
 
     after(function(done){
         resetApp().then(function(){
