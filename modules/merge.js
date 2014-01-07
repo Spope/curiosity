@@ -135,7 +135,14 @@ module.exports = function(connection){
                     });
                 }else{
                     fs.unlinkSync(picture);
-                    callback();
+                    //Remove the pic from the DB
+                    var tempName = picture.split('/');
+                    tempName = tempName[tempName.length -1];
+                    connection('pictures').where('temp_name', tempName).del().then(function(){
+                        console.log('removed : '+tempName);
+                        callback();
+                    }).done();
+                    
                 }
             });
         },
@@ -161,6 +168,7 @@ module.exports = function(connection){
 
         generateTimeJSON: function(callback){
             var that = this;
+            console.log('begin of sols.json generation'.cyan);
             connection('pictures').select('sol', connection.raw('count(id) as total')).groupBy('sol').orderBy('sol', 'ASC').then(function(rows){
 
                 var temp = 0.0;

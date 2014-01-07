@@ -25,15 +25,22 @@
         </section>
 
         <section>
-            <h3>Video</h3>
-            <video controls width="256" height="256" preload="auto">
-                <source src="exports/video.mp4" type="video/mp4">
-                <source src="exports/video.ogg" type="video/ogg">
-                Curiosity's trip into video.
-            </video>
-        
+            <div id="divVideo">
+                <h3>Video</h3>
+                <video controls width="256" height="256" preload="auto">
+                    <source src="exports/video.mp4" type="video/mp4">
+                    <source src="exports/video.ogg" type="video/ogg">
+                    Curiosity's trip into video.
+                </video>
+            </div>
 
-            <p>The video is composed of <?php echo count(glob('exports/merge/*.jpg')); ?> pictures and played at 10fps. The last parsed sol is <?php echo file_get_contents('exports/last-sol.txt'); ?></p>
+            <div id="currentSol">
+                <h3>Sol</h3>
+                <h3 id="sol">0</h3>
+            </div>
+            <div class="clr"></div>
+
+            <p>The video is composed of <?php echo count(glob('exports/merge/*.jpg')); ?> pictures and played at 10fps. The last parsed sol is <?php $sols = json_decode(file_get_contents('exports/sols.json'), true); end($sols); echo(key($sols)); ?></p>
         </section>
 
         <section>
@@ -47,6 +54,7 @@
 if($_SERVER['HTTP_HOST'] != "localhost" && $_SERVER['HTTP_HOST'] != "devserver2"){
 ?>
 <script>
+    /*
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -54,8 +62,10 @@ if($_SERVER['HTTP_HOST'] != "localhost" && $_SERVER['HTTP_HOST'] != "devserver2"
 
   ga('create', 'UA-46723031-1', 'spope.fr');
   ga('send', 'pageview');
+     */
 
 </script>
+<script type="text/javascript" src="public/js/sols.js"></script>
 <?php
 }
 ?>
