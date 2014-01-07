@@ -58,11 +58,12 @@
 
         <a href="https://github.com/Spope/curiosity"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
-        <a href="https://twitter.com/share" class="twitter-share-button" data-via="spopila">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div id="share">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="spopila">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
-        <div class="clr"></div>
-        <div class="fb-share-button" data-href="http://projects.spope.fr/curiosity/" data-type="button_count"></div>
+            <div class="fb-share-button" data-href="http://projects.spope.fr/curiosity/" data-type="button_count"></div>
+        </div>
 
     </div>
 </div>
