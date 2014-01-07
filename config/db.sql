@@ -4,7 +4,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 06, 2014 at 04:22 PM
+-- Generation Time: Jan 07, 2014 at 10:31 AM
 -- Server version: 5.5.32-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.7
 
@@ -32,5 +32,12 @@ CREATE TABLE IF NOT EXISTS `pictures` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `original_name` (`original_name`),
   UNIQUE KEY `temp_name` (`temp_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `pictures`
+--
+
+INSERT INTO `pictures` (`id`, `original_name`, `name`, `temp_name`, `date`, `sol`) VALUES
+(1, 'a', 'a', 'a', '2014-01-01 00:00:00', 493);
 

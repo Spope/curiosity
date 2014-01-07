@@ -109,7 +109,7 @@ module.exports = function(connection){
                     }
 
                     if(sol > that.previousSol){
-                        that._urls.push(sol);
+                        that._urls.push(parseInt(sol));
                     }
                 }
                 defer.resolve();
