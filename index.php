@@ -19,7 +19,7 @@
 
             <h3>About</h3>
             <p>Welcome to Curiosity's Trip. It's a script aimed at retrieving Curiosity's pictures (available on <a href="http://mars.jpl.nasa.gov/msl/multimedia/raw/" title="Curiosity's raw pictures" target="_blank">JPL's website</a>) to create a video of its trip.</p>
-            <p>It download pictures from Front Hazard Avoidance Cameras (Front Hazcams). I have choosen this camera because it look in front of the rover and it won't rotate or move. The script check either A and B side cameras. A-side which is linked to main computer had worked until February when a memory glitch corrupted main computer, so backup or B-side computer has been switched on to replace A-side during its debugging. So from Sol 215 to now, pictures are taken with B-side.</p>
+            <p>It download pictures from Front Hazard Avoidance Cameras (Front Hazcams). I have chosen this camera because it look in front of the rover and it won't rotate or move. The script check either A and B side cameras. A-side which is linked to main computer had worked until February when a memory glitch corrupted main computer, so backup or B-side computer has been switched on to replace A-side during its debugging. So from Sol 215 to now, pictures are taken with B-side.</p>
             <p>Hazcams have a resolution of 1024X1024 but only a small amount of pictures are 1024px wide. The other formats are 256px, 64px and sometimes, custom sizes <a href="http://mars.jpl.nasa.gov/msl/multimedia/raw/?s=474&camera=FHAZ_" target="_blank" title="JPL - MSL raw images">are requested</a>. As 64px is a bit small they won't be downloaded and 1024px pictures are downscaled to 256px to increase the amount of pictures.</p>
 
         </section>
