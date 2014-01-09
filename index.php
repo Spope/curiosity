@@ -5,7 +5,7 @@
     <title>Curiosity's Trip</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="public/css/main.css" media="all" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css' />
     <link rel="image_src" href="http://projects.spope.fr/curiosity/exports/merge/00001.jpg" />
     <meta property="og:image" content="http://projects.spope.fr/curiosity/exports/merge/00001.jpg"/>
 </head>
