@@ -18,6 +18,7 @@ module.exports = {
          * -qscale 1 > max quality
          */
         exec("ffmpeg -r 10 -y -qscale 1 -i "+sources+" "+destMP4, function(error, stdout, stderr){
+        //exec("~/bin/ffmpeg -r 10 -y -i "+sources+" -vcodec libx264 -preset slow -crf 24 -pix_fmt yuv420p "+destMP4+"", function(error, stdout, stderr){
             console.log('MP4 video encoded'.green);
 
             if (error !== null) {
@@ -25,6 +26,7 @@ module.exports = {
             }
 
             exec("ffmpeg -r 10 -y -qscale 15 -i "+sources+" "+destOGG, function(error, stdout, stderr){
+            //exec("~/bin/ffmpeg -r 10 -y -i "+sources+" "+destOGG, function(error, stdout, stderr){
                 console.log('OGG video encoded'.green);
 
                 if (error !== null) {
