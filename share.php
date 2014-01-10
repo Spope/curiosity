@@ -20,7 +20,7 @@
         <div id="currentSol">
             <h2>Sol</h2>
             <h2 id="sol">0</h2>
-            <p>The video is composed of <?php echo count(glob('exports/merge/*.jpg')); ?> pictures, from sol 0 to <?php $sols = json_decode(file_get_contents('exports/sols.json'), true); end($sols); echo(key($sols)); ?>.</p>
+            <p>The video is composed of 1<?php echo count(glob('exports/merge/*.jpg')); ?> pictures, from sol 0 to <?php $sols = json_decode(file_get_contents('exports/sols.json'), true); end($sols); echo(key($sols)); ?>.</p>
             <p id="source">Source : <a href="http://projects.spope.fr/curiosity/" target="_blank" title="Curiosity's Trip">Curiosity's Trip</a></p>
         </div>
         <div class="clr"></div>

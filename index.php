@@ -66,7 +66,7 @@
             <div class="fb-share-button" data-href="http://projects.spope.fr/curiosity/" data-type="button_count"></div>
             <div class="clr"></div>
             <p>You can embed the video with the sols with this tag : </p>
-            <textarea readonly="readonly" onclick="this.select()"><iframe src="http://projects.spope.fr/curiosity/share.php" width="550" height="256" frameborder="0" ></iframe></textarea>
+            <textarea readonly="readonly" onclick="this.select()"><iframe src="http://projects.spope.fr/curiosity/share.php" width="512" height="256" frameborder="0" ></iframe></textarea>
         </div>
     </div>
 </div>
