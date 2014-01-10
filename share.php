@@ -5,8 +5,6 @@
     <title>Curiosity's Trip</title>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="public/css/iframe.css" media="all" />
-    <link rel="image_src" href="http://projects.spope.fr/curiosity/exports/merge/00001.jpg" />
-    <meta property="og:image" content="http://projects.spope.fr/curiosity/exports/merge/00001.jpg"/>
 </head>
 <body>
 <div id="global">
