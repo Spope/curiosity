@@ -3,6 +3,7 @@ var gm = require('gm').subClass({ imageMagick: true });;
 var Q  = require('q');
 
 module.exports = function(connection){
+
     return {
         cameras: ['A', 'B'],
         sides: ['Left', 'Right'],
@@ -121,9 +122,7 @@ module.exports = function(connection){
         },
 
         resize: function(picture, callback){
-
             var pic = gm(picture);
-
             pic.size(function(err, size){
 
                 if(err){console.log(err)};

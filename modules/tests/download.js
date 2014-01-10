@@ -46,8 +46,8 @@ describe('Download', function() {
 
             Download.getAddresses().then(function() {
 
-                var length = Download._urls.length;
-                assert.equal(Download._urls[length - 1], 494);
+                var length = Download._newSols.length;
+                assert.equal(Download._newSols[length - 1], 494);
                 done();
             }).done(null, done);
 
@@ -58,7 +58,7 @@ describe('Download', function() {
 
         it('should load the page from a URL', function(done) {
             this.timeout(6000);
-            var sol = Download._urls[Download._urls.length - 1];
+            var sol = Download._newSols[Download._newSols.length - 1];
 
             Download.loadPage(sol, function(body){
                 html = body;
@@ -100,11 +100,11 @@ describe('Download', function() {
             }).done();
         });
 
-        it('savePicture should save picture into database', function(done){
+        it('savePictureToDB should save picture into database', function(done){
             this.timeout(8000);
             var pic = list[0];
 
-            Download.savePicture(pic).then(function(){
+            Download.savePictureToDB(pic).then(function(){
 
                 connection('pictures').select().orderBy('id', 'desc').limit('1').then(function(rows){
 
