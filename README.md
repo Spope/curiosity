@@ -37,6 +37,9 @@ Go into **root/** and run
 
 	//If not installed
     sudo apt-get install imagemagick
+    sudo apt-get install ffmpeg
+
+The database schema is located in **config/db.sql**
 
 ###Execution
 	node app.js
