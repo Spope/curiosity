@@ -18,7 +18,8 @@ module.exports = function(grunt) {
                     cleancss: true
                 },
                 files: {
-                    "public/css/main.css" : "public/less/main.less"
+                    "public/css/main.css" : "public/less/main.less",
+                    "public/css/iframe.css" : "public/less/iframe.less"
                 }
             }
         },
