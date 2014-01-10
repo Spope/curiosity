@@ -16,7 +16,7 @@ module.exports = function(connection){
         currentLastSol:0,
         path: 'exports/',
 
-        _urls: [],
+        _newSols: [],
         _index: 0,
 
         _end: null,
@@ -54,9 +54,6 @@ module.exports = function(connection){
                 loop(that.sides, that.cameras);
             }).done();
 
-            //this.getAddresses().then(function(){
-                //loop(that.sides, that.cameras);
-            //});
         },
 
         getPreviousParsedSol: function(){
@@ -66,7 +63,6 @@ module.exports = function(connection){
         getAddresses: function(){
             var defer = Q.defer();
             var that = this;
-            //this.previousSol = fs.readFileSync(this.path+'last-sol.txt');
 
             console.log('Requesting'.cyan+' : listing');
             request({ 'uri' : this.listingUrl }, function (err, response, body){
@@ -91,8 +87,6 @@ module.exports = function(connection){
 
                 var sol;
                 for(var i in list){
-                    //var url = list[i].attribs.href;
-                    //url = url.replace('./', 'http://mars.jpl.nasa.gov/msl/multimedia/raw/');
                     sol = $(list[i].children).text();
                     sol = sol.split('\n');
                     sol = sol[1];
@@ -109,7 +103,7 @@ module.exports = function(connection){
                     }
 
                     if(sol > that.previousSol){
-                        that._urls.push(parseInt(sol));
+                        that._newSols.push(parseInt(sol));
                     }
                 }
                 defer.resolve();
@@ -134,8 +128,8 @@ module.exports = function(connection){
 
         nextPage: function(){
             var that = this;
-            if(this._index < this._urls.length){
-                var sol = this._urls[this._index];
+            if(this._index < this._newSols.length){
+                var sol = this._newSols[this._index];
                 this.loadPage(sol, function(body){
                     var list = that.parse(body, sol);
                     that.download(list, function(){that.nextPage();});
@@ -143,8 +137,6 @@ module.exports = function(connection){
                 this._index++;
             }else{
                 console.log('Scrapping pic ended');
-                //fs.writeFileSync(that.path+'last-sol.txt', this.currentLastSol);
-                //console.log('Sol saved!');
                 this._end.resolve();
             }
         },
@@ -229,7 +221,7 @@ module.exports = function(connection){
             var writer = fs.createWriteStream(that.path+that.side+that.camera+"/"+filename);
             var dl = request(pic.src)
                 .on('end', function(){
-                    that.savePicture(pic).then(function(){
+                    that.savePictureToDB(pic).then(function(){
                         defer.resolve(true);
                     }, function(){
                         defer.reject();
@@ -241,7 +233,7 @@ module.exports = function(connection){
             return defer.promise;
         },
 
-        savePicture: function(pic){
+        savePictureToDB: function(pic){
             var defer = Q.defer();
             var query = connection('pictures').where('original_name', pic.originalName).select('id');
             query.then(function(row){

@@ -35,18 +35,21 @@
         </section>
 
         <section>
-            <div id="divVideo">
-                <h3>Video</h3>
-                <video controls width="256" height="256" preload="auto">
-                    <source src="exports/video.mp4" type="video/mp4">
-                    <source src="exports/video.ogg" type="video/ogg">
-                    Curiosity's trip into video.
-                </video>
-            </div>
+            <div class="center">
+                <div id="divVideo">
+                    <h3>Video</h3>
+                    <video controls width="256" height="256" preload="auto">
+                        <source src="exports/video.mp4" type="video/mp4">
+                        <source src="exports/video.ogg" type="video/ogg">
+                        Curiosity's trip into video.
+                    </video>
+                </div>
 
-            <div id="currentSol">
-                <h3>Sol</h3>
-                <h3 id="sol">0</h3>
+                <div id="currentSol">
+                    <h3>Sol</h3>
+                    <h3 id="sol">0</h3>
+                </div>
+                <div class="clr"></div>
             </div>
             <div class="clr"></div>
 
@@ -59,13 +62,37 @@
 
         <a href="https://github.com/Spope/curiosity"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
+        <hr />
+
         <div id="share">
-            <a href="https://twitter.com/share" class="twitter-share-button" data-via="spopila">Tweet</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            <h3>Share</h3>
+            <div class="fll">
+                <!-- Place this tag where you want the +1 button to render. -->
+                <div class="g-plusone" data-size="medium"></div>
 
-            <div class="fb-share-button" data-href="http://projects.spope.fr/curiosity/" data-type="button_count"></div>
+                <!-- Place this tag after the last +1 button tag. -->
+                <script type="text/javascript">
+                  (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/platform.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                  })();
+                </script>
+            </div>
+
+            <div class="fll">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-via="spopila">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+
+            <div class="fll">
+                <div class="fb-share-button" data-href="http://projects.spope.fr/curiosity" data-type="button_count"></div>
+            </div>
+            
+            <div class="clr"></div>
+            <p>Or you can embed the video and the sols with this tag : </p>
+            <textarea readonly="readonly" onclick="this.select()"><iframe src="http://projects.spope.fr/curiosity/share.php" width="512" height="256" frameborder="0" ></iframe></textarea>
         </div>
-
     </div>
 </div>
 <?php

@@ -20,7 +20,7 @@ describe('Merge', function() {
         resetApp().then(function(){
 
             var Download = require('../download')(connection);
-            Download._urls = ["474"];
+            Download._newSols = ["474"];
             Download.camera= 'B';
             Download.side = 'Right';
             Download._end = Q.defer();
