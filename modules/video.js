@@ -36,3 +36,5 @@ module.exports = {
         });
     }
 };
+//  /usr/bin/ffmpeg -r 10 -y  -i ./exports/merge/%05d.jpg -qscale 1 ./exports/video.mp4
+//  /usr/bin/ffmpeg -r 10 -y  -i ./exports/merge/%05d.jpg -qscale 15 ./exports/video.ogg
