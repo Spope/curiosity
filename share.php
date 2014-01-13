@@ -7,26 +7,23 @@
     <link rel="stylesheet" type="text/css" href="public/css/iframe.css" media="all" />
 </head>
 <body>
-<div id="global">
-    <section class="clr">
-        <div id="divVideo">
-            <video controls width="256" height="256" preload="auto">
-                <source src="exports/video.mp4" type="video/mp4">
-                <source src="exports/video.ogg" type="video/ogg">
-                Curiosity's trip into video.
-            </video>
-        </div>
+<section class="clr">
+    <div id="divVideo">
+        <video controls width="256" height="256" preload="auto">
+            <source src="exports/video.mp4" type="video/mp4">
+            <source src="exports/video.ogg" type="video/ogg">
+            Curiosity's trip into video.
+        </video>
+    </div>
 
-        <div id="currentSol">
-            <h2>Sol</h2>
-            <h2 id="sol">0</h2>
-            <p>The video is composed of <?php echo count(glob('exports/merge/*.jpg')); ?> pictures, from sol 0 to <?php $sols = json_decode(file_get_contents('exports/sols.json'), true); end($sols); echo(key($sols)); ?>.</p>
-            <p id="source">Source : <a href="http://projects.spope.fr/curiosity/" target="_blank" title="Curiosity's Trip">Curiosity's Trip</a></p>
-        </div>
-        <div class="clr"></div>
-    </section>
+    <div id="currentSol">
+        <h2>Sol</h2>
+        <h2 id="sol">0</h2>
+        <p>The video is composed of <?php echo count(glob('exports/merge/*.jpg')); ?> pictures, from sol 0 to <?php $sols = json_decode(file_get_contents('exports/sols.json'), true); end($sols); echo(key($sols)); ?>.</p>
+        <p id="source">Source : <a href="http://projects.spope.fr/curiosity/" target="_blank" title="Curiosity's Trip">Curiosity's Trip</a></p>
+    </div>
+</section>
 
-</div>
 <?php
 if($_SERVER['HTTP_HOST'] != "localhost" && $_SERVER['HTTP_HOST'] != "devserver2"){
 ?>
