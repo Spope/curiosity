@@ -239,14 +239,19 @@ module.exports = function(connection){
             query.then(function(row){
 
                 if(row.length == 0) {
-
-                    connection('pictures').insert({
+                    var data = {
                         original_name : pic.originalName,
                         name          : '',
                         temp_name     : pic.name+'.jpg',
                         date          : pic.date,
                         sol           : pic.sol
-                    }).then(function(){
+                    };
+
+                    Q.all([
+                        connection('pictures').insert(data),
+                        connection('pictures_big').insert(data)
+                    ]).then(function(){
+
                         console.log('pic saved : '.green+' '+pic.originalName);
                         defer.resolve();
 
@@ -255,6 +260,7 @@ module.exports = function(connection){
                         console.log(err);
                         defer.reject();
                     }).done();
+
                 }else{
                     if(typeof(callback) == 'function'){
                         callback();

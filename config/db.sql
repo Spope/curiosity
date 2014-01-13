@@ -4,7 +4,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 07, 2014 at 10:31 AM
+-- Generation Time: Jan 13, 2014 at 02:46 PM
 -- Server version: 5.5.32-0ubuntu0.12.04.1
 -- PHP Version: 5.3.10-1ubuntu3.7
 
@@ -41,3 +41,27 @@ CREATE TABLE IF NOT EXISTS `pictures` (
 INSERT INTO `pictures` (`id`, `original_name`, `name`, `temp_name`, `date`, `sol`) VALUES
 (1, 'a', 'a', 'a', '2014-01-01 00:00:00', 493);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pictures_big`
+--
+
+DROP TABLE IF EXISTS `pictures_big`;
+CREATE TABLE IF NOT EXISTS `pictures_big` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `original_name` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `temp_name` varchar(255) NOT NULL,
+  `date` datetime NOT NULL,
+  `sol` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `original_name` (`original_name`,`temp_name`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `pictures_big`
+--
+
+INSERT INTO `pictures_big` (`id`, `original_name`, `name`, `temp_name`, `date`, `sol`) VALUES
+(1, 'a', 'a', 'a', '2014-01-01 00:00:00', 493);

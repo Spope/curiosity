@@ -1,4 +1,4 @@
-var fs = require('fs');
+var fs = require('fs-extra');
 var gm = require('gm').subClass({ imageMagick: true });;
 var Q  = require('q');
 
@@ -12,6 +12,7 @@ module.exports = function(connection){
         path: 'exports/',
 
         _picNumber: fs.readdirSync('exports/merge/').length,
+        _picNumberBig: fs.readdirSync('exports/merge_big/').length,
 
         merge: function(callback){
             var si = 0;
@@ -97,21 +98,23 @@ module.exports = function(connection){
 
         startResize: function(callback){
             var that = this;
-            var folder = this.path+this.side+this.camera+'/';
             var pictures = that.readFiles();
             var index = 0;
             console.log('start resize'.cyan);
 
             var loop = function(pictures){
-                that.resize(folder+pictures[index], function(){
-                    index++;
-                    if(index < pictures.length){
-                        loop(pictures);
-                    }else{
-                        console.log('end resize'.green)
-                        callback();
-                    }
-                });
+                var bigPic = that.bigPicDuplication(pictures[index]);
+                bigPic.then(function(){
+                    that.resize(pictures[index], function(){
+                        index++;
+                        if(index < pictures.length){
+                            loop(pictures);
+                        }else{
+                            console.log('end resize'.green)
+                            callback();
+                        }
+                    });
+                }).done();
             }
 
             if(pictures.length > 0){
@@ -121,14 +124,52 @@ module.exports = function(connection){
             }
         },
 
+        bigPicDuplication: function(picture, callback){
+
+            var defer = Q.defer();
+            var folder = this.path+this.side+this.camera+'/';
+            var pic = gm(folder+picture);
+            var that = this;
+
+            pic.size(function(err, size){
+                //1024px wide pics are copied into merge1024 folder.
+                if(size.width == size.height && size.width == 1024){
+                    that.saveBigPicture(picture).then(function(){
+                        defer.resolve();
+                    }).done();
+                }else{
+                    //Remove the pic from the DB pictures_big
+                    var tempName = picture.split('/');
+                    tempName = tempName[tempName.length -1];
+                    connection('pictures_big').where('temp_name', tempName).del().then(function(){
+                        console.log('removed from pictures_big : '+tempName);
+                        defer.resolve();
+                    }).done();
+                }
+            });
+
+            return defer.promise;
+        },
+
+        saveBigPicture: function(picture) {
+            var folder = this.path+this.side+this.camera+'/';
+            this._picNumberBig++;
+            var name = this.pad(String(this._picNumberBig), 5);
+            fs.copySync(folder+picture, 'exports/merge_big/'+name+".jpg");
+            return connection('pictures_big').where('temp_name', picture).update({'name': name+'.jpg'});
+        },
+
         resize: function(picture, callback){
-            var pic = gm(picture);
+            var folder = this.path+this.side+this.camera+'/';
+            var pic = gm(folder+picture);
+            var that = this;
             pic.size(function(err, size){
 
                 if(err){console.log(err)};
+                //Every square pic with a width > 255 are resized into merge
                 if(size.width == size.height && size.width > 255){
                     pic.resize(256, 256)
-                    .write(picture, function (err) {
+                    .write(folder+picture, function (err) {
                         if (err){console.log(err);}
                         callback();
                     });
@@ -168,6 +209,19 @@ module.exports = function(connection){
         generateTimeJSON: function(callback){
             var that = this;
             console.log('begin of sols.json generation'.cyan);
+
+            Q.all([
+                that._generateJSON(),
+                that._generateBigJSON()
+            ]).then(function(){
+                callback();
+            }).done();
+
+        },
+
+        _generateJSON: function(){
+            var that = this;
+            var defer = Q.defer();
             connection('pictures').select('sol', connection.raw('count(id) as total')).groupBy('sol').orderBy('sol', 'ASC').then(function(rows){
 
                 var temp = 0.0;
@@ -181,9 +235,36 @@ module.exports = function(connection){
                 fs.writeFileSync(that.path+'sols.json', JSON.stringify(time));
                 console.log('sols.json generated'.green);
 
-                callback();
+                defer.resolve();
+
 
             }).done();
+
+            return defer.promise;
+        },
+
+        _generateBigJSON: function(){
+            var that = this;
+            var defer = Q.defer();
+            connection('pictures_big').select('sol', connection.raw('count(id) as total')).groupBy('sol').orderBy('sol', 'ASC').then(function(rows){
+
+                var temp = 0.0;
+                var time = {};
+                for (k in rows){
+                    var row = rows[k];
+                    temp += row.total;
+                    time[row.sol] = temp / 10;
+                }
+                
+                fs.writeFileSync(that.path+'sols_big.json', JSON.stringify(time));
+                console.log('sols_big.json generated'.green);
+
+                defer.resolve();
+
+
+            }).done();
+
+            return defer.promise;
         }
     };
 

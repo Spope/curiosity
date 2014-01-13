@@ -5,9 +5,13 @@
 /exports/RightA/*
 /exports/RightB/*
 /exports/merge/*
+/exports/merge_big/*
 /exports/sols.json
+/exports/sols_big.json
 /exports/video.mp4
+/exports/video_big.mp4
 /exports/video.ogg
+/exports/video_big.ogg
 /config/config.js
 
 
