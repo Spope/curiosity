@@ -100,13 +100,28 @@ describe('Download', function() {
             }).done();
         });
 
-        it('savePictureToDB should save picture into database', function(done){
+        it('savePictureToDB should save picture into database pictures', function(done){
             this.timeout(8000);
             var pic = list[0];
 
             Download.savePictureToDB(pic).then(function(){
 
                 connection('pictures').select().orderBy('id', 'desc').limit('1').then(function(rows){
+
+                    assert.equal(rows[0].original_name, pic.originalName);
+
+                    done();
+                }).done();
+            }).done();
+        });
+
+        it('savePictureToDB should save picture into database pictures_big', function(done){
+            this.timeout(8000);
+            var pic = list[0];
+
+            Download.savePictureToDB(pic).then(function(){
+
+                connection('pictures_big').select().orderBy('id', 'desc').limit('1').then(function(rows){
 
                     assert.equal(rows[0].original_name, pic.originalName);
 

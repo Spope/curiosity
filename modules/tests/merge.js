@@ -44,6 +44,32 @@ describe('Merge', function() {
         })
     });
 
+    describe('bigDuplication', function(){
+
+        it('should duplicate 1024 pic to merge_big and save it to DB', function(done){
+            this.timeout(5000);
+            Merge.bigPicDuplication('2013-12-06-02-37-38.jpg').then(function(){
+
+                var folder = Merge.path+'merge_big/';
+                var pictures = fs.readdirSync(folder);
+
+                assert.equal(pictures.length, 1);
+
+                done();
+            }).done();
+        });
+
+        it('should set the new name into DB _big', function(done){
+
+            connection('pictures_big').where('temp_name', '2013-12-06-02-37-38.jpg').then(function(rows){
+                assert.equal(rows[0].name, '00001.jpg');
+
+                done();
+            }).done();
+            
+        });
+    });
+
     describe('resize', function(){
 
         it('should resize the picture to 256X256 and delete non square pictures', function(done){
@@ -128,6 +154,7 @@ var resetDb = function(){
 var resetApp = function(){
     emptyFolder('exports/RightB/');
     emptyFolder('exports/merge/');
+    emptyFolder('exports/merge_big/');
 
     return resetDb();
 }
