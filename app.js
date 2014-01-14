@@ -7,7 +7,6 @@ var Download= require('./modules/download')(connection);
 var Merge   = require('./modules/merge')(connection);
 var Video   = require('./modules/video');
 
-
 Download.loadPics(function(){
     Merge.merge(function(){
         Video.convert();
@@ -15,7 +14,6 @@ Download.loadPics(function(){
         connection.client.pool.destroy();
     });
 });
-
 
 //JSON generation
 //SELECT `sol`, COUNT( `id`) AS 'pictures' FROM `pictures` GROUP BY `sol`

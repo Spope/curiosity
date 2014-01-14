@@ -105,7 +105,6 @@ module.exports = function(connection){
             var loop = function(pictures){
                 var bigPic = that.bigPicDuplication(pictures[index]);
                 bigPic.then(function(){
-                console.log(pictures[index]);
                     that.resize(pictures[index], function(){
                         index++;
                         if(index < pictures.length){
