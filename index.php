@@ -40,7 +40,7 @@
 
             <h3>Videos</h3>
 
-            <p>In the first video, 1024px pictures are downscaled to 256px to increase the amount of pictures.</p>
+            <p>In the first video, 1024px pictures are downscaled to 256px to increase the amount of pictures. Video become smoother at sol 360.</p>
 
             <div id="centerVideo">
                 <div id="divVideo">
