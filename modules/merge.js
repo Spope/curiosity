@@ -134,9 +134,11 @@ module.exports = function(connection){
             pic.size(function(err, size){
                 //1024px wide pics are copied into merge1024 folder.
                 if(size.width == size.height && size.width == 1024){
+
                     that.saveBigPicture(picture).then(function(){
                         defer.resolve();
                     }).done();
+
                 }else{
                     //Remove the pic from the DB pictures_big
                     var tempName = picture.split('/');
@@ -152,11 +154,33 @@ module.exports = function(connection){
         },
 
         saveBigPicture: function(picture) {
+            var defer = Q.defer();
             var folder = this.path+this.side+this.camera+'/';
             this._picNumberBig++;
             var name = this.pad(String(this._picNumberBig), 5);
-            fs.copySync(folder+picture, 'exports/merge_big/'+name+".jpg");
-            return connection('pictures_big').where('temp_name', picture).update({'name': name+'.jpg'});
+            var path = 'exports/merge_big/'+name+'.jpg';
+            fs.copySync(folder+picture, path);
+
+            //Retrieving sol number from DB
+            connection('pictures_big').where('temp_name', picture).select('sol').then(function(rows){
+                //Writing sol into the picture
+                var sol = rows[0].sol;
+                var pic = gm(path);
+                pic.fontSize(150)
+                .fill("#ffffff80")
+                .drawText(700, 950, sol)
+                .write(path, function(err){
+                    if(err)console.log(err);
+                });
+
+                //Updating the new name of the pic into the DB
+                connection('pictures_big').where('temp_name', picture).update({'name': name+'.jpg'}).then(function(rows){
+
+                    defer.resolve();
+                }).done();
+            }).done();
+
+            return defer.promise;
         },
 
         resize: function(picture, callback){
