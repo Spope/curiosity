@@ -57,7 +57,9 @@
                     <h3 id="sol">0</h3>
                 </div>
                 <div class="clr"></div>
+                <p>The video is composed of <?php echo count(glob('exports/merge/*.jpg')); ?> pictures and played at 10fps. The last parsed sol is <?php $sols = json_decode(file_get_contents('exports/sols.json'), true); end($sols); echo(key($sols)); ?></p>
             </div>
+            
             <div class="clr"></div>
 
         <section>
@@ -74,7 +76,7 @@
             </div>
             
 
-            <p>The video is composed of <?php echo count(glob('exports/merge/*.jpg')); ?> pictures and played at 10fps. The last parsed sol is <?php $sols = json_decode(file_get_contents('exports/sols.json'), true); end($sols); echo(key($sols)); ?></p>
+            <p>The video is composed of <?php echo count(glob('exports/merge_big/*.jpg')); ?> pictures and played at 10fps. The last parsed sol is <?php $sols = json_decode(file_get_contents('exports/sols.json'), true); end($sols); echo(key($sols)); ?></p>
         </section>
 
         <section>
