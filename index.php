@@ -112,7 +112,7 @@
             </div>
             
             <div class="clr"></div>
-            <p>Or you can embed the video and the sols with this tag : </p>
+            <p>Or you can embed the video and the sols with this tag : <a id="previewEmbed">(preview)</a><img id="imgPreview" src="public/img/embed.png" width="512" height="256" alt="Preview of the embeded iframe" /></p>
             <textarea readonly="readonly" onclick="this.select()"><iframe src="http://projects.spope.fr/curiosity/share.php" width="512" height="256" frameborder="0" ></iframe></textarea>
         </div>
     </div>
@@ -130,6 +130,7 @@ if($_SERVER['HTTP_HOST'] != "localhost" && $_SERVER['HTTP_HOST'] != "devserver2"
   ga('create', 'UA-46723031-1', 'spope.fr');
   ga('send', 'pageview');
 </script>
+<script type="text/javascript" src="public/js/rollOver.js"></script>
 <script type="text/javascript" src="public/js/sols.js"></script>
 <script type="text/javascript">
 var sol =  new DynamicSol('videoSmall', 'sol', 'sols.json');
