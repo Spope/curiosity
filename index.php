@@ -31,7 +31,7 @@
 
             <h3>About</h3>
             <p>Welcome to Curiosity's Trip. It's a script aimed at retrieving Curiosity's pictures (available on <a href="http://mars.jpl.nasa.gov/msl/multimedia/raw/" title="Curiosity's raw pictures" target="_blank">JPL's website</a>) to create a video of its trip.</p>
-            <p>It download pictures from Front Hazard Avoidance Cameras (Front Hazcams). I have chosen this camera because it look in front of the rover and it won't rotate or move. The script check either A and B side cameras. A-side which is linked to main computer had worked until February when a memory glitch corrupted main computer, so backup or B-side computer has been switched on to replace A-side during its debugging. So from Sol 215 to now, pictures are taken with B-side.</p>
+            <p>It download pictures from <strong>Front Hazard Avoidance Cameras</strong> (Front Hazcams). I have chosen this camera because it look in front of the rover and it won't rotate or move. The script check either <strong>A and B side</strong> cameras. A-side which is linked to main computer had worked until February when a memory glitch corrupted main computer, so backup or B-side computer has been switched on to replace A-side during its debugging. So from Sol 215 to now, pictures are taken with B-side.</p>
             <p>Hazcams have a resolution of 1024X1024 but not every pictures are 1024px wide. The other formats are 256px, 64px and sometimes, custom sizes <a href="http://mars.jpl.nasa.gov/msl/multimedia/raw/?s=474&camera=FHAZ_" target="_blank" title="JPL - MSL raw images">are requested</a>.</p>
 
         </section>
@@ -40,7 +40,7 @@
 
             <h3>Videos</h3>
 
-            <p>In the first video, 1024px pictures are downscaled to 256px to increase the amount of pictures. Video become smoother at sol 360.</p>
+            <p>In the first video, 1024px pictures are downscaled to 256px to increase the amount of pictures. Video become <strong>smoother at sol 360</strong>.</p>
 
             <div id="centerVideo">
                 <div id="divVideo">
@@ -65,7 +65,7 @@
         <section>
             <hr />
             <br />
-            <p>The second video, is made with 1024px pictures only. It's a little shorter than the first. 1024px pictures are rarer.</p>
+            <p>The second video, is made with <strong>1024px pictures only</strong>. It's shorter than the first because 1024px pictures are rarer.</p>
 
             <div id="divVideoBig">
                 <video id="videoBig" controls width="1024" height="1024" preload="auto">
