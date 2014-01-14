@@ -1,43 +1,42 @@
-var DynamicSol = {
-    sols: null,
-    video: null,
-    display: null,
+var DynamicSol = function(video, display, url){
+    this.sols     = null;
+    this.sols_url = url;
+    this.video    = document.getElementById(video);
+    this.display  = document.getElementById(display);
 
-    init: function(){
+    this.init = function(){
         var _this = this;
-        this.video = document.getElementsByTagName('video')[0]
-        this.display = document.getElementById('sol');
 
         this.xhr({
-            url: "exports/sols.json",
+            url: 'exports/'+this.sols_url,
             callback: function(data){
                 _this.sols = JSON.parse(data);
                 _this.startListen();
             }
         });
-    },
+    };
 
-    startListen: function(){
+    this.startListen = function(){
         this.video.addEventListener('timeupdate', function(e){
             this.updateSol();
         }.bind(this), false);
-    },
+    };
 
-    updateSol: function(e){
+    this.updateSol = function(e){
         var sol = this.getSol(this.video.currentTime);
         this.display.innerHTML = sol;
-    },
+    };
 
-    getSol: function(t){
+    this.getSol = function(t){
         for(k in this.sols){
             var sT = this.sols[k];
             if(sT > t){
                 return k;
             }
         }
-    },
+    };
 
-    xhr: function(options){
+    this.xhr = function(options){
 
         var _this = this;
 
@@ -64,7 +63,7 @@ var DynamicSol = {
         xhr.open(options.method, options.url, true);
         xhr.setRequestHeader('Content-Type', options.requestHeader);
         xhr.send(options.body);
-    }
+    };
 };
 
-DynamicSol.init();
+
