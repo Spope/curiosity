@@ -65,7 +65,7 @@
         <section>
             <hr />
             <br />
-            <p>The second video, is made with 1024px pictures only. It will be a little shorter than the first.</p>
+            <p>The second video, is made with 1024px pictures only. It's a little shorter than the first. 1024px pictures are rarer.</p>
 
             <div id="divVideoBig">
                 <video id="videoBig" controls width="1024" height="1024" preload="auto">

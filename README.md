@@ -24,7 +24,7 @@ Each downloaded picture will be saved into a MySQL database. It allow to scrap n
     * moment
     * knex
 * imagemagick
-* ffmpeg
+* ffmpeg / Compiled with libx264
 * mysql
 
 
@@ -46,9 +46,9 @@ The database schema is located in **config/db.sql**
 
 It will save images into **exports/{Left}{A}/{date}.jpg**
 
-Then they'll be merged, named (00001.jpg) and sized (256X256px) into **exports/merge/**
+Then they'll be merged, named (00001.jpg) and sized (256X256px) into **exports/merge/** and **exports/merge_big** (1024x1024px)
 
-Finally the video will be in **exports/video.mp4** and **exports/video.ogg**
+Finally the video will be in **exports/video(_big).mp4** and **exports/video(_big).ogg**
 
 ###Tests
 
