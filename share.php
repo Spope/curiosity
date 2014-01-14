@@ -9,7 +9,7 @@
 <body>
 <section class="clr">
     <div id="divVideo">
-        <video controls width="256" height="256" preload="auto">
+        <video id="videoSmall" controls width="256" height="256" preload="auto">
             <source src="exports/video.mp4" type="video/mp4">
             <source src="exports/video.ogg" type="video/ogg">
             Curiosity's trip into video.
@@ -37,6 +37,10 @@ if($_SERVER['HTTP_HOST'] != "localhost" && $_SERVER['HTTP_HOST'] != "devserver2"
   ga('send', 'pageview');
 </script>
 <script type="text/javascript" src="public/js/sols.js"></script>
+<script type="text/javascript">
+var sol =  new DynamicSol('videoSmall', 'sol', 'sols.json');
+sol.init();
+</script>
 <?php
 }
 ?>
