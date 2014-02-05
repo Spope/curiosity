@@ -28,7 +28,7 @@ module.exports = {
     doMP4: function(sources, dest){
         var defer = Q.defer();
         //compiled version
-        exec("~/bin/ffmpeg -r 10 -y -i "+sources+" -vcodec libx264 -preset slow -crf 24 -pix_fmt yuv420p "+dest+"", function(error, stdout, stderr){
+        exec("ffmpeg -r 10 -y -i "+sources+" -vcodec libx264 -preset slow -crf 24 -pix_fmt yuv420p "+dest+"", function(error, stdout, stderr){
             console.log('MP4 video encoded'.green+" "+dest);
             if (error !== null) {
                 console.log('exec error: '.red + error);
@@ -45,7 +45,7 @@ module.exports = {
     doOGG: function(sources, dest){
         var defer = Q.defer();
         //ubuntu version
-        exec("/usr/bin/ffmpeg -r 10 -y -i "+sources+" -qscale 15 "+dest, function(error, stdout, stderr){
+        exec("ffmpeg -r 10 -y -i "+sources+" -qscale 15 "+dest, function(error, stdout, stderr){
             console.log('OGG video encoded'.green+" "+dest);
             if (error !== null) {
                 console.log('exec error: '.red + error);
