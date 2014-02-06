@@ -12,8 +12,8 @@ module.exports = {
         var sources_big = './exports/merge_big/%05d.jpg';
         var destMP4     = './exports/video.mp4';
         var destMP4_big = './exports/video_big.mp4';
-        var destOGG     = './exports/video.webM';
-        var destOGG_big = './exports/video_big.webM';
+        var destOGG     = './exports/video.webm';
+        var destOGG_big = './exports/video_big.webm';
 
         console.log('start video encoding'.cyan);
         that.doMP4(sources, destMP4).then(function(){
