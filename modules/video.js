@@ -17,11 +17,11 @@ module.exports = {
 
         console.log('start video encoding'.cyan);
         that.doMP4(sources, destMP4).then(function(){
-            return that.doOGG(sources, destOGG);
+            return that.doOGG(sources, destOGG, "1M");
         }).then(function(){
             return that.doMP4(sources_big, destMP4_big);
         }).then(function(){
-            return that.doOGG(sources_big, destOGG_big);
+            return that.doOGG(sources_big, destOGG_big, "2M");
         }).done();
     },
 
@@ -42,10 +42,10 @@ module.exports = {
 
     },
 
-    doOGG: function(sources, dest){
+    doOGG: function(sources, dest, bitrate){
         var defer = Q.defer();
         //ubuntu version
-        exec("ffmpeg -r 10 -y -i "+sources+" -c:v libvpx -b:v 1M -c:a libvorbis "+dest, function(error, stdout, stderr){
+        exec("ffmpeg -r 10 -y -i "+sources+" -c:v libvpx -b:v "+bitrate+" -c:a libvorbis "+dest, function(error, stdout, stderr){
             console.log('webM video encoded'.green+" "+dest);
             if (error !== null) {
                 console.log('exec error: '.red + error);
