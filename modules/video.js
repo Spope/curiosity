@@ -12,8 +12,8 @@ module.exports = {
         var sources_big = './exports/merge_big/%05d.jpg';
         var destMP4     = './exports/video.mp4';
         var destMP4_big = './exports/video_big.mp4';
-        var destOGG     = './exports/video.ogg';
-        var destOGG_big = './exports/video_big.ogg';
+        var destOGG     = './exports/video.webM';
+        var destOGG_big = './exports/video_big.webM';
 
         console.log('start video encoding'.cyan);
         that.doMP4(sources, destMP4).then(function(){
@@ -45,8 +45,8 @@ module.exports = {
     doOGG: function(sources, dest){
         var defer = Q.defer();
         //ubuntu version
-        exec("ffmpeg -r 10 -y -i "+sources+" -qscale 15 -b 800k -vcodec libtheora -acodec libvorbis -f ogg "+dest, function(error, stdout, stderr){
-            console.log('OGG video encoded'.green+" "+dest);
+        exec("ffmpeg -r 10 -y -i "+sources+" -qscale 15 -c:v libvpx -b:v 1M -c:a libvorbis "+dest, function(error, stdout, stderr){
+            console.log('webM video encoded'.green+" "+dest);
             if (error !== null) {
                 console.log('exec error: '.red + error);
                 defer.reject();
