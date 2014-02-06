@@ -25,7 +25,7 @@ module.exports = {
             return that.doOGG(sources_big, destOGG_big, "10M");
         }).done();
        */
-        that.doOGG(sources_big, destOGG_big, "3900k");
+        that.doOGG(sources_big, destOGG_big, "10M");
     },
 
     doMP4: function(sources, dest){
@@ -48,7 +48,7 @@ module.exports = {
     doOGG: function(sources, dest, bitrate){
         var defer = Q.defer();
         //ubuntu version
-        exec("ffmpeg -r 10 -y -i "+sources+" -qscale 15 -c:v libvpx -c:a libvorbis "+dest, function(error, stdout, stderr){
+        exec("ffmpeg -r 10 -y -i "+sources+" -c:v libvpx -b:v "+bitrate+" -qscale 15 -qmin 40 -qmax 63 -c:a libvorbis "+dest, function(error, stdout, stderr){
             console.log('webM video encoded'.green+" "+dest);
             if (error !== null) {
                 console.log('exec error: '.red + error);
