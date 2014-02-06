@@ -25,7 +25,7 @@ module.exports = {
             return that.doOGG(sources_big, destOGG_big, "10M");
         }).done();
        */
-        that.doOGG(sources_big, destOGG_big, "20M");
+        that.doOGG(sources_big, destOGG_big, "3900k");
     },
 
     doMP4: function(sources, dest){
