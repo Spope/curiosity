@@ -16,6 +16,7 @@ module.exports = {
         var destOGG_big = './exports/video_big.webm';
 
         console.log('start video encoding'.cyan);
+        /*
         that.doMP4(sources, destMP4).then(function(){
             return that.doOGG(sources, destOGG, "1M");
         }).then(function(){
@@ -23,6 +24,8 @@ module.exports = {
         }).then(function(){
             return that.doOGG(sources_big, destOGG_big, "10M");
         }).done();
+       */
+        that.doOGG(sources_big, destOGG_big, "10M");
     },
 
     doMP4: function(sources, dest){
