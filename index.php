@@ -47,7 +47,7 @@
                     <h3>Video</h3>
                     <video id="videoSmall" controls width="256" height="256" preload="auto">
                         <source src="exports/video.mp4" type="video/mp4">
-                        <source src="exports/video.ogg" type="video/ogg">
+                        <source src="exports/video.webm" type="video/webm">
                         Curiosity's trip into video.
                     </video>
                 </div>
@@ -70,7 +70,7 @@
             <div id="divVideoBig">
                 <video id="videoBig" controls width="1024" height="1024" preload="auto">
                     <source src="exports/video_big.mp4" type="video/mp4">
-                    <source src="exports/video_big.ogg" type="video/ogg">
+                    <source src="exports/video_big.webm" type="video/webm">
                     Curiosity's trip into video.
                 </video>
             </div>
