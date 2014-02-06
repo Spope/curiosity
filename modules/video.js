@@ -12,17 +12,17 @@ module.exports = {
         var sources_big = './exports/merge_big/%05d.jpg';
         var destMP4     = './exports/video.mp4';
         var destMP4_big = './exports/video_big.mp4';
-        var destOGG     = './exports/video.webm';
-        var destOGG_big = './exports/video_big.webm';
+        var destWEBM     = './exports/video.webm';
+        var destWEBM_big = './exports/video_big.webm';
 
         console.log('start video encoding'.cyan);
 
         that.doMP4(sources, destMP4).then(function(){
-            return that.doOGG(sources, destOGG, "1M");
+            return that.doWEBM(sources, destWEBM, "1M");
         }).then(function(){
             return that.doMP4(sources_big, destMP4_big);
         }).then(function(){
-            return that.doOGG(sources_big, destOGG_big, "5M");
+            return that.doWEBM(sources_big, destWEBM_big, "5M");
         }).done();
 
     },
@@ -44,7 +44,7 @@ module.exports = {
 
     },
 
-    doOGG: function(sources, dest, bitrate){
+    doWEBM: function(sources, dest, bitrate){
         var defer = Q.defer();
         //ubuntu version
         exec("ffmpeg -r 10 -y -i "+sources+" -c:v libvpx -crf 10 -b:v "+bitrate+" -c:a libvorbis "+dest, function(error, stdout, stderr){

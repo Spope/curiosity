@@ -6,7 +6,7 @@ The script will load [http://mars.jpl.nasa.gov/msl/multimedia/raw/](http://mars.
 
 Then for each Sol, it will load the page and parse the pictures links. You can select which camera (A - B) and which side (Left - Right).
 
-It will avoid downloading thumbnails. Then it will remove non square pictures (somes are) and reduces them to 256X256px to increase pictures number (only a few are 1024px wide). After that, ffmpeg will create an .mp4 and .ogg videos at 10fps.
+It will avoid downloading thumbnails. Then it will remove non square pictures (somes are) and reduces them to 256X256px to increase pictures number (only a few are 1024px wide). After that, ffmpeg will create an .mp4 and .webm videos at 10fps.
 
 Each downloaded picture will be saved into a MySQL database. It allow to scrap new sols only when executing the app.
 
@@ -39,6 +39,8 @@ Go into **root/** and run
     sudo apt-get install imagemagick
     sudo apt-get install ffmpeg
 
+A nice tut to compile ffmpeg with required codec : [https://gist.github.com/faleev/3435377](https://gist.github.com/faleev/3435377)
+
 The database schema is located in **config/db.sql**
 
 ###Execution
@@ -48,7 +50,7 @@ It will save images into **exports/{Left}{A}/{date}.jpg**
 
 Then they'll be merged, named (00001.jpg) and sized (256X256px) into **exports/merge/** and **exports/merge_big** (1024x1024px)
 
-Finally the video will be in **exports/video(_big).mp4** and **exports/video(_big).ogg**
+Finally the video will be in **exports/video(_big).mp4** and **exports/video(_big).webm**
 
 ###Tests
 
