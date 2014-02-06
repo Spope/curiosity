@@ -45,7 +45,7 @@ module.exports = {
     doOGG: function(sources, dest){
         var defer = Q.defer();
         //ubuntu version
-        exec("ffmpeg -r 10 -y -i "+sources+" -qscale 15 -b 800k -vcodec libtheora -acodec libvorbis -ar 22050 -ab 56k -g 30 -f ogg "+dest, function(error, stdout, stderr){
+        exec("ffmpeg -r 10 -y -i "+sources+" -qscale 15 -b 800k -vcodec libtheora -acodec libvorbis -f ogg "+dest, function(error, stdout, stderr){
             console.log('OGG video encoded'.green+" "+dest);
             if (error !== null) {
                 console.log('exec error: '.red + error);
