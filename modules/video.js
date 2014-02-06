@@ -21,7 +21,7 @@ module.exports = {
         }).then(function(){
             return that.doMP4(sources_big, destMP4_big);
         }).then(function(){
-            return that.doOGG(sources_big, destOGG_big, "2M");
+            return that.doOGG(sources_big, destOGG_big, "10M");
         }).done();
     },
 
