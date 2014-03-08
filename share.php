@@ -11,7 +11,7 @@
     <div id="divVideo">
         <video id="videoSmall" controls width="256" height="256" preload="auto">
             <source src="exports/video.mp4" type="video/mp4">
-            <source src="exports/video.ogg" type="video/ogg">
+            <source src="exports/video.webm" type="video/webm">
             Curiosity's trip into video.
         </video>
     </div>
