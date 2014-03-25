@@ -8,6 +8,8 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css' />
     <link rel="image_src" href="http://projects.spope.fr/curiosity/exports/merge/00469.jpg" />
     <meta property="og:image" content="http://projects.spope.fr/curiosity/exports/merge/00469.jpg"/>
+    <meta name="description" content="Curiosity's Trip is a video of the trip made by MSL Cursiosity rover since its landing to today. The videos are daily updated." />
+    <meta name="keywords" content="Curiosity, MSL, Mars, rover, trip, Hazcams, JPL" />
 </head>
 <body>
 <div id="fb-root"></div>
