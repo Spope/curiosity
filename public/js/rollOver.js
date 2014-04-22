@@ -4,7 +4,7 @@ var previewEmbed = function(){
 
     this.btn.onmouseover = function(e) {
         this.preview.style.display = "block";
-        this.bindMove();
+        //this.bindMove();
     }.bind(this);
 
     this.btn.onmouseout = function(e) {
