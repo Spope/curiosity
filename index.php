@@ -144,7 +144,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="public/js/rollOver.js"></script>
+<script type="text/javascript" src="public/js/rollOver.js?cache=01"></script>
 <script type="text/javascript" src="public/js/sols.js"></script>
 <script type="text/javascript">
 var sol =  new DynamicSol('videoSmall', 'sol', 'sols.json');
