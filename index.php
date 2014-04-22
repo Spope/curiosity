@@ -21,17 +21,18 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
+<header>
+    <h1>Curiosity's trip</h1>
+    <h2>Daily updated</h2>
+    <div class="clr"></div>
+</header>
 <div id="global">
     <div id="main">
-        <header>
-            <h1>Curiosity's trip</h1>
-            <h2>Daily updated</h2>
-            <div class="clr"></div>
-        </header>
 
         <section>
 
-            <h3>About</h3>
+            <h3 class="left">About</h3>
+            <div class="clr"></div>
             <p>Welcome to Curiosity's Trip. It's a script aimed at retrieving Curiosity's pictures (available on <a href="http://mars.jpl.nasa.gov/msl/multimedia/raw/" title="Curiosity's raw pictures" target="_blank">JPL's website</a>) to create a video of its trip.</p>
             <p>It download pictures from <strong>Front Hazard Avoidance Cameras</strong> (Front Hazcams). I have chosen this camera because it look in front of the rover and it won't rotate or move. The script check either <strong>A and B side</strong> cameras. A-side which is linked to main computer had worked until February when a memory glitch corrupted main computer, so backup or B-side computer has been switched on to replace A-side during its debugging. So from Sol 215 to now, pictures are taken with B-side.</p>
             <p>Hazcams have a resolution of 1024X1024 but not every pictures are 1024px wide. The other formats are 256px, 64px and sometimes, custom sizes <a href="http://mars.jpl.nasa.gov/msl/multimedia/raw/?s=474&camera=FHAZ_" target="_blank" title="JPL - MSL raw images">are requested</a>.</p>
@@ -40,7 +41,7 @@
 
         <section>
 
-            <h3>Videos</h3>
+            <h3>The videos</h3>
 
             <p>In the first video, 1024px pictures are downscaled to 256px to increase the amount of pictures. Video become <strong>smoother at sol 360</strong>.</p>
 
@@ -120,6 +121,12 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="public/js/rollOver.js"></script>
+<script type="text/javascript" src="public/js/sols.js"></script>
+<script type="text/javascript">
+var sol =  new DynamicSol('videoSmall', 'sol', 'sols.json');
+sol.init();
+</script>
 <?php
 if($_SERVER['HTTP_HOST'] != "localhost" && $_SERVER['HTTP_HOST'] != "devserver2"){
 ?>
@@ -132,12 +139,11 @@ if($_SERVER['HTTP_HOST'] != "localhost" && $_SERVER['HTTP_HOST'] != "devserver2"
   ga('create', 'UA-46723031-1', 'spope.fr');
   ga('send', 'pageview');
 </script>
-<script type="text/javascript" src="public/js/rollOver.js"></script>
-<script type="text/javascript" src="public/js/sols.js"></script>
-<script type="text/javascript">
-var sol =  new DynamicSol('videoSmall', 'sol', 'sols.json');
-sol.init();
-</script>
+
+<?php
+}else{
+?>
+<script src="http://localhost:35729/livereload.js"></script>
 <?php
 }
 ?>
