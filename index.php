@@ -102,7 +102,8 @@
         <hr />
         <div class="col-md-12">
             <p>If you have any questions, feel free to  <a href="https://twitter.com/spopila" target="_blank" title="Contact me on tiwtter">contact me on Twitter</a>, for bugs or improvements, <a href="https://github.com/Spope/curiosity/issues" title="Issue on Github" target="_blank">open an issue on Github</a>.</p>
-            <p>Made by <a href="http://spope.fr" title="Spope portfolio">Spope</a></p>
+            <p>Made by <a href="http://spope.fr" title="Spope portfolio">Spope</a>, photo: <a href="http://www.jpl.nasa.gov/spaceimages/details.php?id=PIA17944" title="Picture source">NASA/JPL-Caltech/MSSS</a></p>
+            
         </div>
     </div>
 
