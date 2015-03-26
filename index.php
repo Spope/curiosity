@@ -103,7 +103,7 @@
         <div class="col-md-12">
             <p>If you have any questions, feel free to  <a href="https://twitter.com/spopila" target="_blank" title="Contact me on tiwtter">contact me on Twitter</a>.</p>
             <p>Made by <a href="http://spope.fr" title="Spope portfolio">Spope</a>, photo: <a href="http://www.jpl.nasa.gov/spaceimages/details.php?id=PIA17944" title="Picture source">NASA/JPL-Caltech/MSSS</a></p>
-            
+            <p>You can also look at my other space project, <a href="http://projects.spope.fr/iss-position">ISS Position</a></p>
         </div>
     </div>
 
