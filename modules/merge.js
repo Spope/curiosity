@@ -133,7 +133,7 @@ module.exports = function(connection){
 
             pic.size(function(err, size){
                 //1024px wide pics are copied into merge1024 folder.
-                if(size.width == size.height && size.width == 1024){
+                if(size && size.width == size.height && size.width == 1024){
 
                     that.saveBigPicture(picture).then(function(){
                         defer.resolve();
