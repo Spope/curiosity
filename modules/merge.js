@@ -191,7 +191,7 @@ module.exports = function(connection){
 
                 if(err){console.log(err)};
                 //Every square pic with a width > 255 are resized into merge
-                if(size.width == size.height && size.width > 255){
+                if(size && size.width == size.height && size.width > 255){
                     pic.resize(256, 256)
                     .write(folder+picture, function (err) {
                         if (err){console.log(err);}
